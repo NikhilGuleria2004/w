@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from "react";
+import { createPortal } from "react-dom";
 import "./School.css";
 
 /* ── Data ─────────────────────────────────────────────────── */
@@ -168,6 +169,7 @@ function Navbar() {
   }, []);
 
   return (
+    <>
     <nav className={`navbar ${scrolled ? "scrolled" : ""}`}>
       <div className="container">
         <div className="navbar__inner">
@@ -214,31 +216,36 @@ function Navbar() {
         </div>
       </div>
 
-      <div className={`navbar__mobile-menu ${mobileMenuOpen ? "navbar__mobile-menu--open" : ""}`}>
-        <div className="navbar__mobile-menu-inner">
-          <button className="navbar__mobile-close" onClick={() => setMobileMenuOpen(false)} aria-label="Close menu">×</button>
-          <div className="navbar__mobile-links">
-            {NAV_LINKS.map((link) => (
-              <div key={link.label} className="navbar__mobile-menu-item">
-                <p className="navbar__mobile-link">{link.label}</p>
-                {link.sub.length > 0 && (
-                  <div className="navbar__mobile-sub-links">
-                    {link.sub.map((s) => (
-                      <button key={s} className="navbar__mobile-sub-link" onClick={() => setMobileMenuOpen(false)}>
-                        {s}
-                      </button>
-                    ))}
-                  </div>
-                )}
-              </div>
-            ))}
-            <button className="navbar__cta navbar__cta--mobile" onClick={() => setMobileMenuOpen(false)}>
-              Enquire Now
-            </button>
+      </nav>
+
+      {createPortal(
+        <div className={`navbar__mobile-menu ${mobileMenuOpen ? "navbar__mobile-menu--open" : ""}`}>
+          <div className="navbar__mobile-menu-inner">
+            <button className="navbar__mobile-close" onClick={() => setMobileMenuOpen(false)} aria-label="Close menu">×</button>
+            <div className="navbar__mobile-links">
+              {NAV_LINKS.map((link) => (
+                <div key={link.label} className="navbar__mobile-menu-item">
+                  <p className="navbar__mobile-link">{link.label}</p>
+                  {link.sub.length > 0 && (
+                    <div className="navbar__mobile-sub-links">
+                      {link.sub.map((s) => (
+                        <button key={s} className="navbar__mobile-sub-link" onClick={() => setMobileMenuOpen(false)}>
+                          {s}
+                        </button>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              ))}
+              <button className="navbar__cta navbar__cta--mobile" onClick={() => setMobileMenuOpen(false)}>
+                Enquire Now
+              </button>
+            </div>
           </div>
-        </div>
-      </div>
-    </nav>
+        </div>,
+        document.body
+      )}
+    </>
   );
 }
 
