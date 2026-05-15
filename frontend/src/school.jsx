@@ -1,0 +1,628 @@
+import { useState, useEffect, useRef } from "react";
+import "./School.css";
+
+/* ── Data ─────────────────────────────────────────────────── */
+const NAV_LINKS = [
+  { label: "Discover",       sub: ["Overview", "School Heritage", "Head of School", "The Journey", "Family of Schools"] },
+  { label: "Learning",       sub: ["Primary School", "Lower Secondary", "Upper Secondary", "Sixth Form"] },
+  { label: "Admissions",     sub: ["Overview", "Admissions Process", "Term Dates", "FAQs", "Fees"] },
+  { label: "Beyond Learning",sub: ["Holistic Education", "Co-Curricular Activities", "Sports at School"] },
+  { label: "Boarding",       sub: ["Overview", "House System", "Pastoral Care", "Boarding Life"] },
+  { label: "Facilities",     sub: [] },
+];
+
+const STATS = [
+  { value: "60",     unit: "acre",  label: "Campus in Devanahalli, Bengaluru" },
+  { value: "453",    unit: "years", label: "Serving education since 1572" },
+  { value: "12,000", unit: "m²",   label: "Academic buildings" },
+  { value: "4,500",  unit: "m²",   label: "Multi-use sports hall" },
+];
+
+const LEARNING = [
+  {
+    title: "Primary School",
+    grades: "KG – Grade 5",
+    age: "Ages 4–10",
+    desc: "An enriching and nurturing environment where young learners discover their passions and build the foundations for lifelong learning.",
+    icon: "",
+  },
+  {
+    title: "Lower Secondary",
+    grades: "Grades 6–8",
+    age: "Ages 11–14",
+    desc: "A dynamic phase of inquiry, creativity and intellectual stretching, setting students on their path to academic excellence.",
+    icon: "",
+  },
+  {
+    title: "Upper Secondary",
+    grades: "Grades 9–10",
+    age: "Ages 14–16",
+    desc: "Rigorous Cambridge-aligned study that develops independent thinking, analytical skills and real-world application.",
+    icon: "",
+  },
+  {
+    title: "Sixth Form",
+    grades: "Grades 11–12",
+    age: "Ages 16–18",
+    desc: "The culmination of a School education — IB Diploma preparation with world-class university guidance and leadership development.",
+    icon: "",
+  },
+];
+
+const NEWS = [
+  {
+    title: "Stet Fortuna Cup 2026",
+    tag: "Sports",
+    desc: "International schools across Bengaluru competed in two days of intense competition and true sportsmanship.",
+    date: "30 Mar 2026",
+  },
+  {
+    title: "Silver Award for Excellence",
+    tag: "Award",
+    desc: "Recognised for Excellence in Physical Infrastructure, Holistic Development and Co-Curricular Education.",
+    date: "30 Mar 2026",
+  },
+  {
+    title: "LAMDA Distinction",
+    tag: "Achievement",
+    desc: "Mehr Singla and Natasha Agrawal both achieved Distinction in their LAMDA examinations.",
+    date: "30 Mar 2026",
+  },
+  {
+    title: "100% in A Level Mathematics",
+    tag: "Academic",
+    desc: "An exceptional perfect score in A Level Pure Mathematics — a proud milestone for our Sixth Form.",
+    date: "30 Mar 2026",
+  },
+];
+
+const FACILITIES = [
+  { icon: "🏊", label: "Olympic Pool" },
+  { icon: "⚽", label: "Sports Fields" },
+  { icon: "🎭", label: "Performing Arts" },
+  { icon: "🔬", label: "Science Labs" },
+  { icon: "📚", label: "Library" },
+  { icon: "🎨", label: "Art Studios" },
+  { icon: "🏋️", label: "Sports Hall" },
+  { icon: "🍽️", label: "Dining Hall" },
+];
+
+const ADMISSIONS_BTNS = [
+  { label: "Apply to Enrol",         primary: true },
+  { label: "Request a Campus Visit", primary: false },
+  { label: "Virtual Tour",           primary: false },
+];
+
+const CONTACT_ITEMS = [
+  { icon: "📧", key: "Email",   val: "admissions@Schoolbengaluru.in" },
+  { icon: "📞", key: "Phone",   val: "+91 80352 74300" },
+  { icon: "📞", key: "Telephone",        val: "+91 92204 43344" },
+  { icon: "📍", key: "Address", val: "Devanahalli, NH-648, Bengaluru 562110" },
+];
+
+const FOOTER_COLS = [
+  { heading: "Discover",   links: ["Overview", "School Heritage", "Head of School", "Family of Schools"] },
+  { heading: "Admissions", links: ["Apply Now", "Process", "Term Dates", "FAQs", "Fees"] },
+  { heading: "Connect",    links: ["Contact Us", "Careers", "Virtual Tour", "Parent Login"] },
+];
+
+/* ── Hooks ────────────────────────────────────────────────── */
+function useScrollReveal(threshold = 0.15) {
+  const ref = useRef(null);
+  const [visible, setVisible] = useState(false);
+
+  useEffect(() => {
+    const obs = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) { setVisible(true); obs.disconnect(); }
+      },
+      { threshold }
+    );
+    if (ref.current) obs.observe(ref.current);
+    return () => obs.disconnect();
+  }, [threshold]);
+
+  return [ref, visible];
+}
+
+/* ── Shared Components ────────────────────────────────────── */
+function RevealSection({ children, delay = 0, className = "" }) {
+  const [ref, visible] = useScrollReveal();
+  return (
+    <div
+      ref={ref}
+      className={className}
+      style={{
+        opacity:    visible ? 1 : 0,
+        transform:  visible ? "translateY(0)" : "translateY(32px)",
+        transition: `opacity 0.7s ease ${delay}ms, transform 0.7s ease ${delay}ms`,
+      }}
+    >
+      {children}
+    </div>
+  );
+}
+
+function Modal({ open, onClose, children }) {
+  if (!open) return null;
+  return (
+    <div className="modal-overlay" onClick={onClose}>
+      <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+        <button className="modal-close" onClick={onClose}>×</button>
+        {children}
+      </div>
+    </div>
+  );
+}
+
+/* ── Navbar ───────────────────────────────────────────────── */
+function Navbar() {
+  const [activeMenu, setActiveMenu] = useState(null);
+  const [scrolled, setScrolled] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 60);
+    window.addEventListener("scroll", onScroll);
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  return (
+    <nav className={`navbar ${scrolled ? "scrolled" : ""}`}>
+      <div className="container">
+        <div className="navbar__inner">
+
+          <div className="navbar__logo">
+            <div className="navbar__logo-badge">S</div>
+            <div>
+              <div className="navbar__logo-sub" style={{ color: "#C8A96E" }}>SCHOOL OF EXCELLENCE</div>
+            </div>
+          </div>
+
+          <button
+            className="navbar__toggle"
+            aria-label={mobileMenuOpen ? "Close navigation menu" : "Open navigation menu"}
+            aria-expanded={mobileMenuOpen}
+            onClick={() => setMobileMenuOpen((open) => !open)}
+          >
+            <span />
+            <span />
+            <span />
+          </button>
+
+          <div className="navbar__links">
+            {NAV_LINKS.map((link) => (
+              <div
+                key={link.label}
+                className="navbar__menu-item"
+                onMouseEnter={() => setActiveMenu(link.label)}
+                onMouseLeave={() => setActiveMenu(null)}
+              >
+                <button className="navbar__link-btn">{link.label}</button>
+                {link.sub.length > 0 && activeMenu === link.label && (
+                  <div className="navbar__dropdown">
+                    {link.sub.map((s) => (
+                      <div key={s} className="navbar__dropdown-item">{s}</div>
+                    ))}
+                  </div>
+                )}
+              </div>
+            ))}
+            <button className="navbar__cta">Enquire Now</button>
+          </div>
+
+        </div>
+      </div>
+
+      <div className={`navbar__mobile-menu ${mobileMenuOpen ? "navbar__mobile-menu--open" : ""}`}>
+        <div className="navbar__mobile-menu-inner">
+          <button className="navbar__mobile-close" onClick={() => setMobileMenuOpen(false)} aria-label="Close menu">×</button>
+          <div className="navbar__mobile-links">
+            {NAV_LINKS.map((link) => (
+              <div key={link.label} className="navbar__mobile-menu-item">
+                <p className="navbar__mobile-link">{link.label}</p>
+                {link.sub.length > 0 && (
+                  <div className="navbar__mobile-sub-links">
+                    {link.sub.map((s) => (
+                      <button key={s} className="navbar__mobile-sub-link" onClick={() => setMobileMenuOpen(false)}>
+                        {s}
+                      </button>
+                    ))}
+                  </div>
+                )}
+              </div>
+            ))}
+            <button className="navbar__cta navbar__cta--mobile" onClick={() => setMobileMenuOpen(false)}>
+              Enquire Now
+            </button>
+          </div>
+        </div>
+      </div>
+    </nav>
+  );
+}
+
+/* ── Hero ─────────────────────────────────────────────────── */
+function Hero() {
+  const [loaded, setLoaded] = useState(false);
+  useEffect(() => {
+    const t = setTimeout(() => setLoaded(true), 100);
+    return () => clearTimeout(t);
+  }, []);
+
+  const fadeStyle = (delayMs) => ({
+    opacity:    loaded ? 1 : 0,
+    transform:  loaded ? "none" : "translateY(50px)",
+    transition: `opacity 1s ease ${delayMs}ms, transform 1s ease ${delayMs}ms`,
+  });
+
+  return (
+    <section className="hero">
+        
+      <div className="hero__grid-bg" />
+      <div className="hero__orb" />
+      <div className="hero__ring hero__ring--lg" />
+      <div className="hero__ring hero__ring--sm" />
+
+      <div className="container hero__content">
+
+        <div style={fadeStyle(200)}>
+          <div className="hero__badge">
+            <div className="hero__badge-dot" />
+            <span className="hero__badge-text">A School Family of Schools Institution</span>
+          </div>
+        </div>
+
+        <div style={fadeStyle(400)}>
+          <h1 className="hero__title">
+            Global Education<br />
+            <span className="hero__title-accent">for Future Leaders</span>
+          </h1>
+        </div>
+
+        <div style={fadeStyle(600)}>
+          <p className="hero__subtitle">
+            Bringing 453 years of School heritage to India — a world-class IB education
+            on a 60-acre campus in the heart of Bengaluru.
+          </p>
+        </div>
+
+        <div style={{ ...fadeStyle(800) }} className="hero__actions">
+          <button className="btn-primary">Apply for August 2026</button>
+          <button className="btn-outline">Request a Visit</button>
+        </div>
+
+      </div>
+
+      <div className="hero__scroll" style={{ opacity: loaded ? 1 : 0, transition: "opacity 1s ease 1.2s" }}>
+        <span className="hero__scroll-label">Scroll</span>
+        <div className="hero__scroll-line" />
+      </div>
+    </section>
+  );
+}
+
+/* ── Stats Bar ────────────────────────────────────────────── */
+function StatsBar() {
+  return (
+    <section className="stats-bar">
+      <div className="container">
+        <div className="stats-bar__grid">
+          {STATS.map((s, i) => (
+            <RevealSection key={s.label} delay={i * 100}>
+              <div className="stats-bar__item">
+                <div className="stats-bar__value-row">
+                  <span className="stats-bar__value">{s.value}</span>
+                  <span className="stats-bar__unit">{s.unit}</span>
+                </div>
+                <p className="stats-bar__label">{s.label}</p>
+              </div>
+            </RevealSection>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ── Learning Section ─────────────────────────────────────── */
+function LearningSection() {
+  const [active, setActive] = useState(null);
+
+  return (
+    <section className="section-dark">
+      <div className="container">
+
+        <RevealSection>
+          <div className="section-header">
+            <p className="section-label">Academic Pathways</p>
+            <h2 className="section-title">Learning at School</h2>
+            <p className="section-intro">
+              The possibilities for learning are endless — they cannot be mandated, quantified, or curtailed.
+            </p>
+          </div>
+        </RevealSection>
+
+        <div className="learning__grid">
+          {LEARNING.map((item, i) => (
+            <RevealSection key={item.title} delay={i * 120}>
+              <div
+                className={`learning__card ${active === i ? "learning__card--active" : ""}`}
+                onClick={() => setActive(i)}
+              >
+                <div className="learning__card-header">
+                  <span className="learning__icon">{item.icon}</span>
+                  <span className="learning__badge">{item.grades}</span>
+                </div>
+                <h3 className="learning__title">{item.title}</h3>
+                <p className="learning__age">{item.age}</p>
+                <p className="learning__desc">{item.desc}</p>
+                {active === i && (
+                  <div className="learning__more">
+                    
+                  </div>
+                )}
+              </div>
+            </RevealSection>
+          ))}
+        </div>
+
+      </div>
+    </section>
+  );
+}
+
+/* ── Head of School ───────────────────────────────────────── */
+function HeadSection() {
+  return (
+    <section className="section-mid">
+      <div className="container">
+        <div className="head__grid">
+
+          <RevealSection>
+            <div>
+              <p className="section-label head__label">Leadership</p>
+              <h2 className="head__title">
+                A Welcome from the<br />Head of School
+              </h2>
+              <p className="head__quote">
+                "At School Bengaluru, we believe that education is not simply the acquisition of knowledge,
+                but the formation of character — building young people who are curious, compassionate,
+                and capable of shaping the world."
+              </p>
+              <div className="head__byline">
+                <p className="head__byline-name">Dr. Caroline Pascoe</p>
+                <p className="head__byline-role">Head of School</p>
+              </div>
+            </div>
+          </RevealSection>
+
+          <RevealSection delay={200}>
+            <div className="head__photo-wrap">
+              <div className="head__photo-frame">
+                <div className="head__photo-inner">
+                  <div className="head__avatar">CP</div>
+                  <p className="head__avatar-name">Dr. Caroline Pascoe</p>
+                </div>
+                <div className="head__photo-bar" />
+              </div>
+              <div className="head__photo-corner" />
+            </div>
+          </RevealSection>
+
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ── Facilities ───────────────────────────────────────────── */
+function FacilitiesSection() {
+  return (
+    <section className="section-dark">
+      <div className="container">
+
+        <RevealSection>
+          <div className="section-header section-header--center">
+            <p className="section-label">Campus Life</p>
+            <h2 className="section-title">World-Class Facilities</h2>
+          </div>
+        </RevealSection>
+
+        <div className="facilities__grid">
+          {FACILITIES.map((f, i) => (
+            <RevealSection key={f.label} delay={i * 80}>
+              <div className="facilities__card">
+                <div className="facilities__icon">{f.icon}</div>
+                <p className="facilities__label">{f.label}</p>
+              </div>
+            </RevealSection>
+          ))}
+        </div>
+
+      </div>
+    </section>
+  );
+}
+
+/* ── News ─────────────────────────────────────────────────── */
+function NewsSection() {
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  const nextNews = () => setCurrentIndex((prev) => (prev + 2) % NEWS.length);
+  const prevNews = () => setCurrentIndex((prev) => (prev - 2 + NEWS.length) % NEWS.length);
+
+  const visibleNews = [
+    NEWS[currentIndex],
+    NEWS[(currentIndex + 1) % NEWS.length],
+  ];
+
+  return (
+    <section className="section-mid">
+      <div className="container">
+
+        <RevealSection>
+          <div className="news__header">
+            <div>
+              <p className="section-label">News & Events</p>
+              <h2 className="section-title">Latest at School</h2>
+            </div>
+            <div className="news__controls">
+              <button className="news__nav-btn" onClick={prevNews}>‹</button>
+              <button className="news__nav-btn" onClick={nextNews}>›</button>
+            </div>
+          </div>
+        </RevealSection>
+
+        <div className="news__grid">
+          {visibleNews.map((item, i) => (
+            <RevealSection key={`${item.title}-${currentIndex}`} delay={i * 100}>
+              <div className="news__card">
+                <div className="news__card-meta">
+                  <span className="news__tag">{item.tag}</span>
+                  <span className="news__date">{item.date}</span>
+                </div>
+                <h3 className="news__title">{item.title}</h3>
+                <p className="news__desc">{item.desc}</p>
+              </div>
+            </RevealSection>
+          ))}
+        </div>
+
+      </div>
+    </section>
+  );
+}
+
+/* ── Admissions ───────────────────────────────────────────── */
+function AdmissionsSection({ onOpenModal }) {
+  return (
+    <section className="section-dark">
+      <div className="container">
+        <div className="admissions__grid">
+
+          <RevealSection>
+            <div>
+              <p className="section-label">Admissions 2026</p>
+              <h2 className="admissions__title">Begin Your School Journey</h2>
+              <p className="admissions__desc">
+                School Bengaluru is now accepting applications for boys and girls aged 4 to 17
+                (LKG to Grade 12), joining us in August 2026.
+              </p>
+              <div className="admissions__buttons">
+                {ADMISSIONS_BTNS.map((btn) => (
+                  <button
+                    key={btn.label}
+                    className={`btn-action ${btn.primary ? "btn-action--primary" : "btn-action--outline"}`}
+                    onClick={onOpenModal}
+                  >
+                    {btn.label} <span>→</span>
+                  </button>
+                ))}
+              </div>
+            </div>
+          </RevealSection>
+
+          <RevealSection delay={200}>
+            <div className="admissions__contact-card">
+              <h3 className="admissions__contact-title">Contact Admissions</h3>
+              {CONTACT_ITEMS.map((c, i) => (
+                <div key={i} className="admissions__contact-row">
+                  <div className="admissions__contact-left">
+                    <span className="admissions__contact-icon">{c.icon}</span>
+                    {c.key && <p className="admissions__contact-key">{c.key}</p>}
+                  </div>
+                  <p className="admissions__contact-val">{c.val}</p>
+                </div>
+              ))}
+            </div>
+          </RevealSection>
+
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ── Footer ───────────────────────────────────────────────── */
+function Footer() {
+  return (
+    <footer className="footer section-deep">
+      <div className="container">
+
+        <div className="footer__grid">
+          <div>
+            <div className="footer__brand">
+              <div className="footer__logo-badge">S</div>
+              <div>
+                {/* <div className="footer__brand-name">School</div> */}
+                <div className="footer__brand-sub">SCHOOL OF EXCELLENCE</div>
+              </div>
+            </div>
+            <p className="footer__tagline">
+              An entity of Ritnand Balved Education Foundation.<br />
+              Part of the global School Family of Schools.
+            </p>
+          </div>
+
+          {FOOTER_COLS.map((col) => (
+            <div key={col.heading}>
+              <p className="footer__col-heading">{col.heading}</p>
+              {col.links.map((l) => (
+                <p key={l} className="footer__link">{l}</p>
+              ))}
+            </div>
+          ))}
+        </div>
+
+        <div className="footer__bottom">
+          <p className="footer__copy">
+            © 2026 School International School Bengaluru. All rights reserved.
+          </p>
+          <div className="footer__legal">
+            {["Privacy Policy", "Terms & Conditions", "Sitemap"].map((l) => (
+              <span key={l} className="footer__legal-link">{l}</span>
+            ))}
+          </div>
+        </div>
+
+      </div>
+    </footer>
+  );
+}
+
+/* ── App Root ─────────────────────────────────────────────── */
+export default function School() {
+  const [modalOpen, setModalOpen] = useState(false);
+
+  return (
+    <div className="app-root">
+      <Navbar />
+      <Hero />
+      <StatsBar />
+      <LearningSection />
+      <HeadSection />
+      <FacilitiesSection />
+      <NewsSection />
+      <AdmissionsSection onOpenModal={() => setModalOpen(true)} />
+      <Footer />
+      <Modal open={modalOpen} onClose={() => setModalOpen(false)}>
+        <h2>Admissions Enquiry</h2>
+        <form className="modal-form">
+          <input type="text" placeholder="Parent/Guardian Name" required />
+          <input type="email" placeholder="Email Address" required />
+          <input type="tel" placeholder="Phone Number" required />
+          <select required>
+            <option value="">Select Grade Applying For</option>
+            <option>KG - Grade 5</option>
+            <option>Grades 6-8</option>
+            <option>Grades 9-10</option>
+            <option>Grades 11-12</option>
+          </select>
+          <textarea placeholder="Additional Message" rows="4"></textarea>
+          <button type="submit" className="btn-primary">Submit Enquiry</button>
+        </form>
+      </Modal>
+    </div>
+  );
+}
