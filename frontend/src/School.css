@@ -639,6 +639,31 @@ h1, h2, h3 { margin: 0; font-family: var(--font-serif); }
 .section-dark + .section-mid { padding-top: 0; }
 .section-deep  { background: var(--navy-deep);  padding: 60px 0 32px; }
 
+/* Remove margins on inner elements so adjacent sections visually touch */
+.section-dark:has(+ .section-mid) > :last-child {
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+
+.section-dark + .section-mid > :first-child {
+  margin-top: 0;
+  padding-top: 0;
+}
+
+/* Mirror: when a .section-mid is followed by .section-dark, remove spacing */
+.section-mid:has(+ .section-dark) { padding-bottom: 0; }
+.section-mid + .section-dark { padding-top: 0; }
+
+.section-mid:has(+ .section-dark) > :last-child {
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+
+.section-mid + .section-dark > :first-child {
+  margin-top: 0;
+  padding-top: 0;
+}
+
 .section-header { margin-bottom: 64px; }
 .section-header--center { text-align: center; }
 
@@ -1484,9 +1509,14 @@ h1, h2, h3 { margin: 0; font-family: var(--font-serif); }
   }
 
   .learning__grid,
-  .news__grid,
-  .facilities__grid {
+  .news__grid {
     grid-template-columns: 1fr;
+  }
+
+  /* Show facilities as two columns on narrow screens */
+  .facilities__grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
   }
 
   .learning__card {
