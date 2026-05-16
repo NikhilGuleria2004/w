@@ -12,6 +12,52 @@ const NAV_LINKS = [
   { label: "Facilities",     sub: [] },
 ];
 
+const slugify = (value) =>
+  value
+    .toLowerCase()
+    .replace(/&/g, "and")
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/(^-|-$)/g, "");
+
+const getRoutePath = (label, parent) => {
+  const buildParentPath = (parentLabel) => {
+    switch (parentLabel) {
+      case "Discover":
+        return "/discover";
+      case "Learning":
+        return "/learning";
+      case "Admissions":
+        return "/admissions";
+      case "Beyond Learning":
+        return "/beyond-learning";
+      case "Boarding":
+        return "/boarding";
+      default:
+        return `/${slugify(parentLabel || label)}`;
+    }
+  };
+
+  if (parent) {
+    const parentPath = buildParentPath(parent);
+    return label === parent ? parentPath : `${parentPath}/${slugify(label)}`;
+  }
+
+  return `/${slugify(label)}`;
+};
+
+const getLegalRoute = (label) => {
+  switch (label) {
+    case "Privacy Policy":
+      return "/privacy-policy";
+    case "Terms & Conditions":
+      return "/terms-and-conditions";
+    case "Sitemap":
+      return "/sitemap";
+    default:
+      return `/${slugify(label)}`;
+  }
+};
+
 const STATS = [
   { value: "60",     unit: "acre",  label: "Campus in Devanahalli, Bengaluru" },
   { value: "453",    unit: "years", label: "Serving education since 1572" },
@@ -157,7 +203,7 @@ function Modal({ open, onClose, children }) {
 }
 
 /* ── Navbar ───────────────────────────────────────────────── */
-function Navbar() {
+function Navbar({ onNavigate }) {
   const [activeMenu, setActiveMenu] = useState(null);
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -200,11 +246,21 @@ function Navbar() {
                 onMouseEnter={() => setActiveMenu(link.label)}
                 onMouseLeave={() => setActiveMenu(null)}
               >
-                <button className="navbar__link-btn">{link.label}</button>
+                <button type="button" className="navbar__link-btn" onClick={() => onNavigate(getRoutePath(link.label, link.label))}>{link.label}</button>
                 {link.sub.length > 0 && activeMenu === link.label && (
                   <div className="navbar__dropdown">
                     {link.sub.map((s) => (
-                      <div key={s} className="navbar__dropdown-item">{s}</div>
+                      <button
+                        type="button"
+                        key={s}
+                        className="navbar__dropdown-item"
+                        onClick={() => {
+                          onNavigate(getRoutePath(s, link.label));
+                          setActiveMenu(null);
+                        }}
+                      >
+                        {s}
+                      </button>
                     ))}
                   </div>
                 )}
@@ -225,11 +281,28 @@ function Navbar() {
             <div className="navbar__mobile-links">
               {NAV_LINKS.map((link) => (
                 <div key={link.label} className="navbar__mobile-menu-item">
-                  <p className="navbar__mobile-link">{link.label}</p>
+                  <button
+                    type="button"
+                    className="navbar__mobile-link"
+                    onClick={() => {
+                      onNavigate(getRoutePath(link.label, link.label));
+                      setMobileMenuOpen(false);
+                    }}
+                  >
+                    {link.label}
+                  </button>
                   {link.sub.length > 0 && (
                     <div className="navbar__mobile-sub-links">
                       {link.sub.map((s) => (
-                        <button key={s} className="navbar__mobile-sub-link" onClick={() => setMobileMenuOpen(false)}>
+                        <button
+                          key={s}
+                          type="button"
+                          className="navbar__mobile-sub-link"
+                          onClick={() => {
+                            onNavigate(getRoutePath(s, link.label));
+                            setMobileMenuOpen(false);
+                          }}
+                        >
                           {s}
                         </button>
                       ))}
@@ -552,7 +625,7 @@ function AdmissionsSection({ onOpenModal }) {
 }
 
 /* ── Footer ───────────────────────────────────────────────── */
-function Footer() {
+function Footer({ onNavigate }) {
   return (
     <footer className="footer section-deep">
       <div className="container">
@@ -576,7 +649,14 @@ function Footer() {
             <div key={col.heading}>
               <p className="footer__col-heading">{col.heading}</p>
               {col.links.map((l) => (
-                <p key={l} className="footer__link">{l}</p>
+                <button
+                  key={l}
+                  type="button"
+                  className="footer__link"
+                  onClick={() => onNavigate(getRoutePath(l, col.heading))}
+                >
+                  {l}
+                </button>
               ))}
             </div>
           ))}
@@ -588,7 +668,14 @@ function Footer() {
           </p>
           <div className="footer__legal">
             {["Privacy Policy", "Terms & Conditions", "Sitemap"].map((l) => (
-              <span key={l} className="footer__legal-link">{l}</span>
+              <button
+                key={l}
+                type="button"
+                className="footer__legal-link"
+                onClick={() => onNavigate(l)}
+              >
+                {l}
+              </button>
             ))}
           </div>
         </div>
@@ -599,12 +686,12 @@ function Footer() {
 }
 
 /* ── App Root ─────────────────────────────────────────────── */
-export default function School() {
+export default function School({ onNavigate }) {
   const [modalOpen, setModalOpen] = useState(false);
 
   return (
     <div className="app-root">
-      <Navbar />
+      <Navbar onNavigate={onNavigate} />
       <Hero />
       <StatsBar />
       <LearningSection />
@@ -612,7 +699,7 @@ export default function School() {
       <FacilitiesSection />
       <NewsSection />
       <AdmissionsSection onOpenModal={() => setModalOpen(true)} />
-      <Footer />
+      <Footer onNavigate={onNavigate} />
       <Modal open={modalOpen} onClose={() => setModalOpen(false)}>
         <h2>Admissions Enquiry</h2>
         <form className="modal-form">

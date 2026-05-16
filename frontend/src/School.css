@@ -60,6 +60,54 @@ h1, h2, h3 { margin: 0; font-family: var(--font-serif); }
   overflow-x: hidden;
 }
 
+.page-view {
+  min-height: calc(100vh - 72px);
+  padding: 120px 2rem 60px;
+  display: flex;
+  justify-content: center;
+  background: radial-gradient(circle at top, rgba(200, 169, 110, 0.08), transparent 30%), var(--navy-dark);
+}
+
+.page-view-inner {
+  width: min(100%, 980px);
+  padding: 40px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 24px;
+  background: rgba(4, 10, 21, 0.93);
+  box-shadow: 0 30px 70px rgba(0, 0, 0, 0.35);
+}
+
+.page-view-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  border: 1px solid rgba(200, 169, 110, 0.35);
+  background: transparent;
+  color: var(--gold);
+  padding: 10px 16px;
+  border-radius: 999px;
+  cursor: pointer;
+  font-family: var(--font-body);
+  font-size: 14px;
+  margin-bottom: 24px;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.page-view-back:hover {
+  background: rgba(200, 169, 110, 0.08);
+}
+
+.page-view-inner h1 {
+  margin: 0 0 18px;
+  font-size: clamp(2rem, 3vw, 3.5rem);
+}
+
+.page-view-inner p {
+  color: rgba(255, 255, 255, 0.8);
+  line-height: 1.8;
+  font-size: 1.05rem;
+}
+
 /* ── Shared Layout ────────────────────────────────────────── */
 .container {
   max-width: 1280px;
@@ -210,11 +258,13 @@ h1, h2, h3 { margin: 0; font-family: var(--font-serif); }
 .navbar__dropdown-item {
   padding: 8px 20px;
   font-size: 16px;
-  color: rgba(255, 255, 255, 0.75);
+  color: white;
   cursor: pointer;
   letter-spacing: 0.05em;
   font-family: var(--font-body);
   transition: color 0.2s, background 0.2s;
+  background: transparent;
+  border: none;
 }
 
 .navbar__dropdown-item:hover {
@@ -250,12 +300,17 @@ h1, h2, h3 { margin: 0; font-family: var(--font-serif); }
   cursor: pointer;
   width: 42px;
   height: 38px;
-  display: flex;
   flex-direction: column;
   justify-content: center;
   gap: 6px;
   padding: 0;
   margin-right: 24px;
+}
+
+@media (min-width: 961px) {
+  .navbar__toggle {
+    display: none;
+  }
 }
 
 .navbar__toggle span {
@@ -1371,6 +1426,10 @@ h1, h2, h3 { margin: 0; font-family: var(--font-serif); }
   margin: 0 0 10px;
   cursor: pointer;
   transition: color 0.2s;
+  background: none;
+  border: none;
+  padding: 0;
+  text-align: left;
 }
 
 .footer__link:hover { color: var(--gold); }
@@ -1400,6 +1459,9 @@ h1, h2, h3 { margin: 0; font-family: var(--font-serif); }
   color: rgba(255, 255, 255, 0.3);
   cursor: pointer;
   transition: color 0.2s;
+  background: none;
+  border: none;
+  padding: 0;
 }
 
 .footer__legal-link:hover { color: var(--gold); }
