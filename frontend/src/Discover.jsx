@@ -27,7 +27,7 @@
  */
 
 import { useState, useEffect, useRef } from "react";
-import "./Discover.css";
+import "./Pages.css";
 
 /* ── Data ─────────────────────────────────────────────────── */
 const HERITAGE_MILESTONES = [

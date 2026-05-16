@@ -496,7 +496,7 @@
 
 /* mirrors head__byline */
 .hos__signature {
-  border-left: 2px solid var(--gold);
+  border-left: 2px solid var(--gold);      
   border-right: 2px solid var(--gold);
   padding-left: 20px;
   margin-top: 40px;
