@@ -68,16 +68,14 @@ function App() {
 
   return (
 
-      <Learning />
 
-
-    // <>
-    //   {ActivePage ? (
-    //     <ActivePage onBack={() => navigate('/')} {...route.props} />
-    //   ) : (
-    //     <School onNavigate={navigate} />
-    //   )}
-    // </>
+    <>
+      {ActivePage ? (
+        <ActivePage onBack={() => navigate('/')} {...route.props} />
+      ) : (
+        <School onNavigate={navigate} />
+      )}
+    </>
   );
 }
 
