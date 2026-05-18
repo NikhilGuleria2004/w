@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import School from './school';
 import { PAGE_COMPONENTS } from './pages';
-import Learning from './Learning';
+
 
 const normalizePath = (path) => {
   const cleaned = (path || '/').replace(/\/+$|\/+(?=\?)/g, '');

@@ -16,7 +16,7 @@ const ADMISSION_STEPS = [
   {
     step: "03",
     title: "Application & Assessment",
-    desc: "Complete the application process, including assessments and interactions appropriate to the student’s age.",
+    desc: "Complete the application process, including assessments and interactions appropriate to the student's age.",
   },
   {
     step: "04",
@@ -50,7 +50,7 @@ const FAQS = [
   },
   {
     q: "Do you offer boarding?",
-    a: "Yes. Both day and boarding options are available depending on the student’s year group.",
+    a: "Yes. Both day and boarding options are available depending on the student's year group.",
   },
   {
     q: "Can international students apply?",
@@ -63,22 +63,10 @@ const FAQS = [
 ];
 
 const FEES = [
-  {
-    level: "Primary School",
-    fee: "₹6,50,000 / year",
-  },
-  {
-    level: "Lower Secondary",
-    fee: "₹8,20,000 / year",
-  },
-  {
-    level: "Upper Secondary",
-    fee: "₹9,80,000 / year",
-  },
-  {
-    level: "Sixth Form",
-    fee: "₹11,50,000 / year",
-  },
+  { level: "Primary School",   fee: "₹6,50,000 / year" },
+  { level: "Lower Secondary",  fee: "₹8,20,000 / year" },
+  { level: "Upper Secondary",  fee: "₹9,80,000 / year" },
+  { level: "Sixth Form",       fee: "₹11,50,000 / year" },
 ];
 
 /* ── Hooks ────────────────────────────────────────────────── */
@@ -98,7 +86,6 @@ function useScrollReveal(threshold = 0.12) {
     );
 
     if (ref.current) obs.observe(ref.current);
-
     return () => obs.disconnect();
   }, [threshold]);
 
@@ -123,7 +110,9 @@ function RevealSection({ children, delay = 0, className = "" }) {
   );
 }
 
-/* ── Subnav ───────────────────────────────────────────────── */
+/* ── Sub-nav ──────────────────────────────────────────────── */
+// Uses: .discover-subnav, .discover-subnav__inner,
+//       .discover-subnav__btn, .discover-subnav__btn--active
 const SUB_LINKS = [
   "Overview",
   "Admissions Process",
@@ -134,27 +123,29 @@ const SUB_LINKS = [
 
 function SubNav({ active, onSelect }) {
   return (
-    <div className="admissions-subnav">
-      <div className="admissions-container">
-        <div className="admissions-subnav__inner">
-          {SUB_LINKS.map((l) => (
-            <button
-              key={l}
-              className={`admissions-subnav__btn ${
-                active === l ? "admissions-subnav__btn--active" : ""
-              }`}
-              onClick={() => onSelect(l)}
-            >
-              {l}
-            </button>
-          ))}
-        </div>
+    <div className="discover-subnav">
+      <div className="discover-subnav__inner">
+        {SUB_LINKS.map((l) => (
+          <button
+            key={l}
+            className={`discover-subnav__btn ${
+              active === l ? "discover-subnav__btn--active" : ""
+            }`}
+            onClick={() => onSelect(l)}
+          >
+            {l}
+          </button>
+        ))}
       </div>
     </div>
   );
 }
 
 /* ── Hero ─────────────────────────────────────────────────── */
+// Uses: .discover-hero, .discover-hero__grid, .discover-hero__orb--a/b,
+//       .discover-hero__ring--lg/sm, .discover-container,
+//       .discover-hero__content, .discover-hero__eyebrow,
+//       .discover-hero__slash, .discover-hero__title, .discover-hero__sub
 function AdmissionsHero({ activeSection }) {
   const [loaded, setLoaded] = useState(false);
 
@@ -170,61 +161,39 @@ function AdmissionsHero({ activeSection }) {
   });
 
   return (
-    <section className="admissions-hero">
-      <div className="admissions-hero__grid" />
-      <div className="admissions-hero__orb admissions-hero__orb--a" />
-      <div className="admissions-hero__orb admissions-hero__orb--b" />
+    <section className="discover-hero">
+      <div className="discover-hero__grid" />
+      <div className="discover-hero__orb discover-hero__orb--a" />
+      <div className="discover-hero__orb discover-hero__orb--b" />
+      <div className="discover-hero__ring discover-hero__ring--lg" />
+      <div className="discover-hero__ring discover-hero__ring--sm" />
 
-      <div className="admissions-container admissions-hero__content">
-        <div style={fade(150)} className="admissions-hero__eyebrow">
-          <span className="admissions-hero__slash">— </span>
+      <div className="discover-container discover-hero__content">
+        <div style={fade(150)} className="discover-hero__eyebrow">
+          <span className="discover-hero__slash">— </span>
           Admissions
-          <span className="admissions-hero__slash"> —</span>
+          <span className="discover-hero__slash"> —</span>
         </div>
 
-        <h1 className="admissions-hero__title" style={fade(300)}>
+        <h1 className="discover-hero__title" style={fade(300)}>
           {activeSection === "Overview" && (
-            <>
-              Begin Your
-              <br />
-              <em>School Journey</em>
-            </>
+            <>Begin Your<br /><em>School Journey</em></>
           )}
-
           {activeSection === "Admissions Process" && (
-            <>
-              The Admissions
-              <br />
-              <em>Process</em>
-            </>
+            <>The Admissions<br /><em>Process</em></>
           )}
-
           {activeSection === "Term Dates" && (
-            <>
-              Academic
-              <br />
-              <em>Calendar</em>
-            </>
+            <>Academic<br /><em>Calendar</em></>
           )}
-
           {activeSection === "FAQs" && (
-            <>
-              Frequently Asked
-              <br />
-              <em>Questions</em>
-            </>
+            <>Frequently Asked<br /><em>Questions</em></>
           )}
-
           {activeSection === "Fees" && (
-            <>
-              Tuition &
-              <br />
-              <em>Fees</em>
-            </>
+            <>Tuition &<br /><em>Fees</em></>
           )}
         </h1>
 
-        <p className="admissions-hero__sub" style={fade(500)}>
+        <p className="discover-hero__sub" style={fade(500)}>
           Welcoming Students from India & Around the World
         </p>
       </div>
@@ -233,34 +202,37 @@ function AdmissionsHero({ activeSection }) {
 }
 
 /* ── Overview ─────────────────────────────────────────────── */
+// overview__content → overview__text (already in CSS), capped width via
+// overview__grid single-column
 function Overview() {
   return (
-    <div className="admissions-section">
-      <div className="admissions-container">
+    <section className="discover-section">
+      <div className="discover-container">
 
         <RevealSection>
-          <div className="admissions-section-header">
-            <p className="admissions-label">Admissions</p>
-            <h2 className="admissions-section-title">
+          <div className="discover-section-header">
+            <h2 className="discover-section-title">
               A Warm Welcome to Future Families
             </h2>
+            <p className="discover-section-intro">Admissions</p>
           </div>
         </RevealSection>
 
         <RevealSection delay={120}>
-          <div className="overview__content">
+          <div
+            className="overview__text"
+            style={{ maxWidth: "720px", margin: "0 auto" }}
+          >
             <p>
               Joining School Bengaluru means becoming part of a vibrant and
               globally connected learning community rooted in excellence,
               character, and opportunity.
             </p>
-
             <p>
               We seek students who are curious, motivated, compassionate,
               and eager to contribute to school life both inside and outside
               the classroom.
             </p>
-
             <p>
               Our Admissions Team is here to guide families through every
               stage of the journey — from initial enquiry to enrolment.
@@ -269,133 +241,177 @@ function Overview() {
         </RevealSection>
 
       </div>
-    </div>
+    </section>
   );
 }
 
 /* ── Admissions Process ───────────────────────────────────── */
+// process__steps / process__card / process__step →
+//   journey__steps grid + journey__step-num / journey__step-title /
+//   journey__step-desc (all defined in CSS)
 function AdmissionsProcess() {
   return (
-    <div className="admissions-section">
-      <div className="admissions-container">
+    <section className="discover-section">
+      <div className="discover-container">
 
         <RevealSection>
-          <div className="admissions-section-header">
-            <p className="admissions-label">Admissions Process</p>
-            <h2 className="admissions-section-title">
-              Four Simple Steps
-            </h2>
+          <div className="discover-section-header">
+            <h2 className="discover-section-title">Four Simple Steps</h2>
+            <p className="discover-section-intro">Admissions Process</p>
           </div>
         </RevealSection>
 
-        <div className="process__steps">
+        <div className="journey__steps">
           {ADMISSION_STEPS.map((s, i) => (
             <RevealSection key={s.step} delay={i * 120}>
-              <div className="process__card">
-                <div className="process__step">{s.step}</div>
-                <h3>{s.title}</h3>
-                <p>{s.desc}</p>
+              <div className="journey__step">
+                <div className="journey__step-num">{s.step}</div>
+                <h3 className="journey__step-title">{s.title}</h3>
+                <p className="journey__step-desc">{s.desc}</p>
               </div>
             </RevealSection>
           ))}
         </div>
 
       </div>
-    </div>
+    </section>
   );
 }
 
 /* ── Term Dates ───────────────────────────────────────────── */
+// terms__grid / terms__card / terms__dates →
+//   3-col inline grid + heritage__card + heritage__year for dates label
 function TermDates() {
   return (
-    <div className="admissions-section">
-      <div className="admissions-container">
+    <section className="discover-section">
+      <div className="discover-container">
 
         <RevealSection>
-          <div className="admissions-section-header">
-            <p className="admissions-label">Academic Year</p>
-            <h2 className="admissions-section-title">
-              Term Dates
-            </h2>
+          <div className="discover-section-header">
+            <h2 className="discover-section-title">Term Dates</h2>
+            <p className="discover-section-intro">Academic Year</p>
           </div>
         </RevealSection>
 
-        <div className="terms__grid">
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: "repeat(3, 1fr)",
+            gap: "16px",
+          }}
+        >
           {TERM_DATES.map((t, i) => (
             <RevealSection key={t.term} delay={i * 120}>
-              <div className="terms__card">
-                <h3>{t.term}</h3>
-                <p className="terms__dates">{t.dates}</p>
-                <p>{t.note}</p>
+              <div className="heritage__card">
+                <span className="heritage__year" style={{ fontSize: "20px" }}>
+                  {t.dates}
+                </span>
+                <h3 className="heritage__card-title">{t.term}</h3>
+                <p className="heritage__card-desc">{t.note}</p>
               </div>
             </RevealSection>
           ))}
         </div>
 
       </div>
-    </div>
+    </section>
   );
 }
 
 /* ── FAQs ─────────────────────────────────────────────────── */
+// faq__list / faq__item →
+//   stacked overview__pull-quote cards (bar + question/answer layout)
 function FAQs() {
   return (
-    <div className="admissions-section">
-      <div className="admissions-container">
+    <section className="discover-section">
+      <div className="discover-container">
 
         <RevealSection>
-          <div className="admissions-section-header">
-            <p className="admissions-label">FAQs</p>
-            <h2 className="admissions-section-title">
+          <div className="discover-section-header">
+            <h2 className="discover-section-title">
               Frequently Asked Questions
             </h2>
+            <p className="discover-section-intro">FAQs</p>
           </div>
         </RevealSection>
 
-        <div className="faq__list">
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            gap: "16px",
+            maxWidth: "800px",
+            margin: "0 auto",
+          }}
+        >
           {FAQS.map((f, i) => (
             <RevealSection key={f.q} delay={i * 100}>
-              <div className="faq__item">
-                <h3>{f.q}</h3>
-                <p>{f.a}</p>
+              <div className="overview__pull-quote">
+                <div className="overview__pull-quote-bar" />
+                <div>
+                  <h3
+                    style={{
+                      fontFamily: "var(--font-body)",
+                      fontSize: "16px",
+                      fontWeight: 700,
+                      letterSpacing: "0.05em",
+                      color: "var(--white)",
+                      margin: "0 0 10px",
+                    }}
+                  >
+                    {f.q}
+                  </h3>
+                  <p
+                    style={{
+                      fontFamily: "var(--font-body)",
+                      fontSize: "17px",
+                      fontStyle: "italic",
+                      color: "rgba(255,255,255,0.55)",
+                      margin: 0,
+                      lineHeight: 1.7,
+                    }}
+                  >
+                    {f.a}
+                  </p>
+                </div>
               </div>
             </RevealSection>
           ))}
         </div>
 
       </div>
-    </div>
+    </section>
   );
 }
 
 /* ── Fees ─────────────────────────────────────────────────── */
+// fees__grid / fees__card →
+//   family__grid + family__card pattern (already defined in CSS)
 function Fees() {
   return (
-    <div className="admissions-section">
-      <div className="admissions-container">
+    <section className="discover-section">
+      <div className="discover-container">
 
         <RevealSection>
-          <div className="admissions-section-header">
-            <p className="admissions-label">Fees</p>
-            <h2 className="admissions-section-title">
-              Tuition & School Fees
-            </h2>
+          <div className="discover-section-header">
+            <h2 className="discover-section-title">Tuition & School Fees</h2>
+            <p className="discover-section-intro">Fees</p>
           </div>
         </RevealSection>
 
-        <div className="fees__grid">
-          {FEES.map((f, i) => (
-            <RevealSection key={f.level} delay={i * 100}>
-              <div className="fees__card">
-                <h3>{f.level}</h3>
-                <p>{f.fee}</p>
+        <RevealSection delay={120}>
+          <div className="family__grid" style={{ gridTemplateColumns: "repeat(4, 1fr)" }}>
+            {FEES.map((f) => (
+              <div className="family__card" key={f.level}>
+                <p className="family__country">{f.level}</p>
+                <p className="family__city" style={{ fontSize: "20px" }}>{f.fee}</p>
               </div>
-            </RevealSection>
-          ))}
-        </div>
+            ))}
+          </div>
+        </RevealSection>
 
       </div>
-    </div>
+    </section>
   );
 }
 
@@ -409,28 +425,18 @@ const SECTION_MAP = {
 };
 
 /* ── Page Root ────────────────────────────────────────────── */
-export default function Admissions({
-  initialSection = "Overview",
-}) {
-  const [activeSection, setActiveSection] =
-    useState(initialSection);
+// Uses: .discover-root
+export default function Admissions({ initialSection = "Overview" }) {
+  const [activeSection, setActiveSection] = useState(initialSection);
 
   useEffect(() => {
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth",
-    });
+    window.scrollTo({ top: 0, behavior: "smooth" });
   }, [activeSection]);
 
   return (
-    <div className="admissions-root">
+    <div className="discover-root">
       <AdmissionsHero activeSection={activeSection} />
-
-      <SubNav
-        active={activeSection}
-        onSelect={setActiveSection}
-      />
-
+      <SubNav active={activeSection} onSelect={setActiveSection} />
       <main>{SECTION_MAP[activeSection]}</main>
     </div>
   );

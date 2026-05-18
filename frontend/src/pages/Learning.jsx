@@ -1,58 +1,9 @@
+// Learning.jsx
+
 import { useState, useEffect, useRef } from "react";
 import "./Pages.css";
 
 /* ── Data ─────────────────────────────────────────────────── */
-const LEARNING_MILESTONES = [
-  {
-    year: "Primary",
-    title: "Foundation Years",
-    desc: "A nurturing environment where curiosity, creativity, and confidence begin to flourish through joyful learning experiences.",
-  },
-  {
-    year: "Lower Secondary",
-    title: "Exploration & Discovery",
-    desc: "Students deepen their understanding across subjects while developing independence, collaboration, and critical thinking skills.",
-  },
-  {
-    year: "Upper Secondary",
-    title: "Academic Pathways",
-    desc: "A rigorous and internationally focused curriculum prepares students for future academic success and personal growth.",
-  },
-  {
-    year: "Sixth Form",
-    title: "University Preparation",
-    desc: "Students refine leadership, intellectual independence, and global perspectives as they prepare for top universities worldwide.",
-  },
-];
-
-const LEARNING_PROGRAMMES = [
-  {
-    stage: "Primary School",
-    age: "Ages 5 – 11",
-    focus: "Creativity, Literacy & Confidence",
-    icon: "🌱",
-  },
-  {
-    stage: "Lower Secondary",
-    age: "Ages 11 – 14",
-    focus: "Exploration & Skill Building",
-    icon: "📘",
-  },
-  {
-    stage: "Upper Secondary",
-    age: "Ages 14 – 16",
-    focus: "Academic Excellence & Direction",
-    icon: "🎓",
-  },
-  {
-    stage: "Sixth Form",
-    age: "Ages 16 – 18",
-    focus: "Leadership & University Readiness",
-    icon: "🌍",
-    active: true,
-  },
-];
-
 const VALUES = [
   {
     icon: "◈",
@@ -93,7 +44,6 @@ function useScrollReveal(threshold = 0.12) {
     );
 
     if (ref.current) obs.observe(ref.current);
-
     return () => obs.disconnect();
   }, [threshold]);
 
@@ -119,6 +69,7 @@ function RevealSection({ children, delay = 0, className = "" }) {
 }
 
 /* ── Sub-nav ──────────────────────────────────────────────── */
+// Uses: .discover-subnav, .discover-subnav__inner, .discover-subnav__btn, .discover-subnav__btn--active
 const SUB_LINKS = [
   "Overview",
   "Primary School",
@@ -129,27 +80,29 @@ const SUB_LINKS = [
 
 function SubNav({ active, onSelect }) {
   return (
-    <div className="learning-subnav">
-      <div className="learning-container">
-        <div className="learning-subnav__inner">
-          {SUB_LINKS.map((l) => (
-            <button
-              key={l}
-              className={`learning-subnav__btn ${
-                active === l ? "learning-subnav__btn--active" : ""
-              }`}
-              onClick={() => onSelect(l)}
-            >
-              {l}
-            </button>
-          ))}
-        </div>
+    <div className="discover-subnav">
+      <div className="discover-subnav__inner">
+        {SUB_LINKS.map((l) => (
+          <button
+            key={l}
+            className={`discover-subnav__btn ${
+              active === l ? "discover-subnav__btn--active" : ""
+            }`}
+            onClick={() => onSelect(l)}
+          >
+            {l}
+          </button>
+        ))}
       </div>
     </div>
   );
 }
 
 /* ── Hero ─────────────────────────────────────────────────── */
+// Uses: .discover-hero, .discover-hero__grid, .discover-hero__orb--a/b,
+//       .discover-hero__ring--lg/sm, .discover-container, .discover-hero__content,
+//       .discover-hero__eyebrow, .discover-hero__slash, .discover-hero__title,
+//       .discover-hero__sub
 function LearningHero({ activeSection }) {
   const [loaded, setLoaded] = useState(false);
 
@@ -165,21 +118,21 @@ function LearningHero({ activeSection }) {
   });
 
   return (
-    <section className="learning-hero">
-      <div className="learning-hero__grid" />
-      <div className="learning-hero__orb learning-hero__orb--a" />
-      <div className="learning-hero__orb learning-hero__orb--b" />
-      <div className="learning-hero__ring learning-hero__ring--lg" />
-      <div className="learning-hero__ring learning-hero__ring--sm" />
+    <section className="discover-hero">
+      <div className="discover-hero__grid" />
+      <div className="discover-hero__orb discover-hero__orb--a" />
+      <div className="discover-hero__orb discover-hero__orb--b" />
+      <div className="discover-hero__ring discover-hero__ring--lg" />
+      <div className="discover-hero__ring discover-hero__ring--sm" />
 
-      <div className="learning-container learning-hero__content">
-        <div style={fade(150)} className="learning-hero__eyebrow">
-          <span className="learning-hero__slash">— </span>
+      <div className="discover-container discover-hero__content">
+        <div style={fade(150)} className="discover-hero__eyebrow">
+          <span className="discover-hero__slash">— </span>
           Learning
-          <span className="learning-hero__slash"> —</span>
+          <span className="discover-hero__slash"> —</span>
         </div>
 
-        <h1 className="learning-hero__title" style={fade(300)}>
+        <h1 className="discover-hero__title" style={fade(300)}>
           {activeSection === "Overview" && (
             <>
               A Journey of
@@ -187,7 +140,6 @@ function LearningHero({ activeSection }) {
               <em>Learning & Growth</em>
             </>
           )}
-
           {activeSection === "Primary School" && (
             <>
               Inspiring Young
@@ -195,7 +147,6 @@ function LearningHero({ activeSection }) {
               <em>Curious Minds</em>
             </>
           )}
-
           {activeSection === "Lower Secondary" && (
             <>
               Building
@@ -203,7 +154,6 @@ function LearningHero({ activeSection }) {
               <em>Confidence & Discovery</em>
             </>
           )}
-
           {activeSection === "Upper Secondary" && (
             <>
               Academic
@@ -211,7 +161,6 @@ function LearningHero({ activeSection }) {
               <em>Excellence Begins</em>
             </>
           )}
-
           {activeSection === "Sixth Form" && (
             <>
               Preparing for
@@ -221,7 +170,7 @@ function LearningHero({ activeSection }) {
           )}
         </h1>
 
-        <p className="learning-hero__sub" style={fade(500)}>
+        <p className="discover-hero__sub" style={fade(500)}>
           Cambridge & IB Curriculum · Global Learning Pathways
         </p>
       </div>
@@ -230,17 +179,21 @@ function LearningHero({ activeSection }) {
 }
 
 /* ── Overview ─────────────────────────────────────────────── */
+// Uses: .discover-section, .discover-container, .discover-section-header,
+//       .discover-section-title, .overview__grid, .overview__text,
+//       .overview__values, .overview__value-item, .overview__value-icon,
+//       .overview__value-title, .overview__value-desc
 function Overview() {
   return (
-    <div className="learning-section">
-      <div className="learning-container">
+    <section className="discover-section">
+      <div className="discover-container">
 
         <RevealSection>
-          <div className="learning-section-header">
-            <p className="learning-label">Our Learning Philosophy</p>
-            <h2 className="learning-section-title">
-              Education for Every Stage
-            </h2>
+          <div className="discover-section-header">
+            <h2 className="discover-section-title">Education for Every Stage</h2>
+            <p className="discover-section-intro">
+              Our Learning Philosophy
+            </p>
           </div>
         </RevealSection>
 
@@ -253,13 +206,11 @@ function Overview() {
                 preparation, students are supported academically, socially, and
                 emotionally.
               </p>
-
               <p>
                 Our curriculum blends academic rigour with creativity,
                 leadership, sport, service, and innovation — ensuring students
                 develop both knowledge and character.
               </p>
-
               <p>
                 Through the Cambridge and IB pathways, students gain the skills,
                 confidence, and global outlook needed to thrive in the modern
@@ -277,7 +228,6 @@ function Overview() {
                   style={{ animationDelay: `${i * 100}ms` }}
                 >
                   <span className="overview__value-icon">{v.icon}</span>
-
                   <div>
                     <h4 className="overview__value-title">{v.title}</h4>
                     <p className="overview__value-desc">{v.desc}</p>
@@ -289,41 +239,54 @@ function Overview() {
         </div>
 
       </div>
-    </div>
+    </section>
   );
 }
 
-/* ── Learning Section Template ───────────────────────────── */
-function LearningStage({
-  label,
-  title,
-  intro,
-  paragraphs,
-}) {
+/* ── Stage Template ───────────────────────────────────────── */
+// Uses: .discover-section, .discover-container, .discover-section-header,
+//       .discover-section-title, .discover-section-intro
+// Note: .journey__steps reused for the card grid; each card uses
+//       .overview__value-item styling (already in CSS) for a clean look.
+function LearningStage({ label, title, intro, paragraphs }) {
   return (
-    <div className="learning-section">
-      <div className="learning-container">
+    <section className="discover-section">
+      <div className="discover-container">
 
         <RevealSection>
-          <div className="learning-section-header">
-            <p className="learning-label">{label}</p>
-            <h2 className="learning-section-title">{title}</h2>
-            <p className="learning-section-intro">{intro}</p>
+          <div className="discover-section-header">
+            <p className="discover-hero__eyebrow" style={{ justifyContent: "center" }}>
+              <span className="discover-hero__slash">— </span>
+              {label}
+              <span className="discover-hero__slash"> —</span>
+            </p>
+            <h2 className="discover-section-title">{title}</h2>
+            <p className="discover-section-intro">{intro}</p>
           </div>
         </RevealSection>
 
-        <div className="stage__content">
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            gap: "16px",
+            maxWidth: "800px",
+            margin: "0 auto",
+          }}
+        >
           {paragraphs.map((p, i) => (
             <RevealSection key={i} delay={i * 120}>
-              <div className="stage__card">
-                <p>{p}</p>
+              <div className="overview__value-item">
+                <p className="overview__value-desc" style={{ margin: 0, fontSize: "20px" }}>
+                  {p}
+                </p>
               </div>
             </RevealSection>
           ))}
         </div>
 
       </div>
-    </div>
+    </section>
   );
 }
 
@@ -398,28 +361,18 @@ const SECTION_MAP = {
 };
 
 /* ── Page Root ────────────────────────────────────────────── */
-export default function Learning({
-  initialSection = "Overview",
-}) {
-  const [activeSection, setActiveSection] =
-    useState(initialSection);
+// Uses: .discover-root
+export default function Learning({ initialSection = "Overview" }) {
+  const [activeSection, setActiveSection] = useState(initialSection);
 
   useEffect(() => {
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth",
-    });
+    window.scrollTo({ top: 0, behavior: "smooth" });
   }, [activeSection]);
 
   return (
-    <div className="learning-root">
+    <div className="discover-root">
       <LearningHero activeSection={activeSection} />
-
-      <SubNav
-        active={activeSection}
-        onSelect={setActiveSection}
-      />
-
+      <SubNav active={activeSection} onSelect={setActiveSection} />
       <main>{SECTION_MAP[activeSection]}</main>
     </div>
   );
