@@ -59,7 +59,7 @@ function App() {
   }, []);
 
   useEffect(() => {
-    const route = ROUTES[pathname];
+    const route = ROUTES[pathname];            
     document.title = route?.title
       ? `${route.title} — ${SITE_NAME}`
       : SITE_NAME;
