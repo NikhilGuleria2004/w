@@ -203,7 +203,7 @@ function Modal({ open, onClose, children }) {
 }
 
 /* ── Navbar ───────────────────────────────────────────────── */
-function Navbar({ onNavigate }) {
+export function Navbar({ onNavigate }) {
   const [activeMenu, setActiveMenu] = useState(null);
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -223,7 +223,7 @@ function Navbar({ onNavigate }) {
           <div className="navbar__logo">
             <div className="navbar__logo-badge">S</div>
             <div>
-              <div className="navbar__logo-sub" style={{ color: "#C8A96E" }}>SCHOOL OF EXCELLENCE</div>
+              <a href="/" style={{textDecoration: "none"}}><div className="navbar__logo-sub" style={{ color: "#C8A96E" }}>SCHOOL OF EXCELLENCE</div></a>
             </div>
           </div>
 
@@ -266,7 +266,12 @@ function Navbar({ onNavigate }) {
                 )}
               </div>
             ))}
-            <button className="navbar__cta">Enquire Now</button>
+              <button
+                className="navbar__cta"
+                onClick={() => onNavigate('/enquire')}
+              >
+                Enquire Now
+              </button>
           </div>
 
         </div>
@@ -625,7 +630,7 @@ function AdmissionsSection({ onOpenModal }) {
 }
 
 /* ── Footer ───────────────────────────────────────────────── */
-function Footer({ onNavigate }) {
+export function Footer({ onNavigate }) {
   return (
     <footer className="footer section-deep">
       <div className="container">
@@ -691,7 +696,7 @@ export default function School({ onNavigate }) {
 
   return (
     <div className="app-root">
-      <Navbar onNavigate={onNavigate} />
+      
       <Hero />
       <StatsBar />
       <LearningSection />
@@ -699,7 +704,7 @@ export default function School({ onNavigate }) {
       <FacilitiesSection />
       <NewsSection />
       <AdmissionsSection onOpenModal={() => setModalOpen(true)} />
-      <Footer onNavigate={onNavigate} />
+      
       <Modal open={modalOpen} onClose={() => setModalOpen(false)}>
         <h2>Admissions Enquiry</h2>
         <form className="modal-form">

@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import School from './school';
+import School, {Navbar, Footer} from './school';
 import { PAGE_COMPONENTS } from './pages';
 
 
@@ -44,6 +44,8 @@ const ROUTES = {
   '/privacy-policy': { component: PAGE_COMPONENTS['Privacy Policy'] },
   '/terms-and-conditions': { component: PAGE_COMPONENTS['Terms & Conditions'] },
   '/sitemap': { component: PAGE_COMPONENTS.Sitemap },
+
+  '/enquire': { component: PAGE_COMPONENTS.Enquire },
 };
 
 function App() {
@@ -70,11 +72,14 @@ function App() {
 
 
     <>
+    <Navbar onNavigate={navigate} />
       {ActivePage ? (
         <ActivePage onBack={() => navigate('/')} {...route.props} />
       ) : (
         <School onNavigate={navigate} />
       )}
+
+      <Footer onNavigate={navigate} />
     </>
   );
 }

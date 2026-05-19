@@ -32,6 +32,7 @@ import ParentLogin from './ParentLogin.jsx';
 import PrivacyPolicy from './PrivacyPolicy.jsx';
 import TermsAndConditions from './TermsAndConditions.jsx';
 import Sitemap from './Sitemap.jsx';
+import Enquire from './Enquire.jsx';
 
 const createDiscoverSection = (section) => (props) => <Discover {...props} initialSection={section} />;
 
@@ -70,4 +71,5 @@ export const PAGE_COMPONENTS = {
   'Privacy Policy': PrivacyPolicy,
   'Terms & Conditions': TermsAndConditions,
   Sitemap,
+  Enquire
 };
