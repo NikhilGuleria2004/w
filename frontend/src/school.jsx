@@ -315,7 +315,7 @@ export function Navbar({ onNavigate }) {
                   )}
                 </div>
               ))}
-              <button className="navbar__cta navbar__cta--mobile" onClick={() => setMobileMenuOpen(false)}>
+              <button className="navbar__cta navbar__cta--mobile" onClick={() => { onNavigate('/enquire'); setMobileMenuOpen(false); }}>
                 Enquire Now
               </button>
             </div>
@@ -328,7 +328,7 @@ export function Navbar({ onNavigate }) {
 }
 
 /* ── Hero ─────────────────────────────────────────────────── */
-function Hero() {
+function Hero({ onNavigate }) {
   const [loaded, setLoaded] = useState(false);
   useEffect(() => {
     const t = setTimeout(() => setLoaded(true), 100);
@@ -373,8 +373,8 @@ function Hero() {
         </div>
 
         <div style={{ ...fadeStyle(800) }} className="hero__actions">
-          <button className="btn-primary">Apply for August 2026</button>
-          <button className="btn-outline">Request a Visit</button>
+          <button className="btn-primary" onClick={() => onNavigate('/enquire')}>Apply for August 2026</button>
+          <button className="btn-outline" onClick={() => onNavigate('/enquire')}>Request a Visit</button>
         </div>
 
       </div>
@@ -697,7 +697,7 @@ export default function School({ onNavigate }) {
   return (
     <div className="app-root">
       
-      <Hero />
+      <Hero onNavigate={onNavigate} />
       <StatsBar />
       <LearningSection />
       <HeadSection />
