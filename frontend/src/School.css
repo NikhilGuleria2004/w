@@ -1419,6 +1419,7 @@ h1, h2, h3 { margin: 0; font-family: var(--font-serif); }
 }
 
 .footer__link {
+  display: block;
   font-family: var(--font-body);
   font-size: 20px;
   font-weight: bold;
