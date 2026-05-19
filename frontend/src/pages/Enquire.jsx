@@ -351,22 +351,8 @@ function EnquireNow() {
 
           {/* ── Form ── */}
           <RevealSection delay={100}>
-            <div
-              style={{
-                background: "rgba(255,255,255,0.02)",
-                border: "1px solid rgba(200,169,110,0.2)",
-                borderRadius: "4px",
-                padding: "40px 36px",
-              }}
-            >
-              <div
-                style={{
-                  display: "grid",
-                  gridTemplateColumns: "1fr 1fr",
-                  gap: "20px",
-                  marginBottom: "20px",
-                }}
-              >
+            <div className="enquire-form-box">
+              <div className="enquire-form-grid">
                 {/* Parent / Guardian Name */}
                 <div style={fieldStyle}>
                   <label style={labelStyle}>Parent / Guardian Name *</label>

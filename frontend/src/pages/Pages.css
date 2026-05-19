@@ -739,6 +739,21 @@
 }
 
 /* ── Responsive ───────────────────────────────────────────── */
+/* ── Enquire Form ─────────────────────────────────────────── */
+.enquire-form-box {
+  background: rgba(255,255,255,0.02);
+  border: 1px solid rgba(200,169,110,0.2);
+  border-radius: 4px;
+  padding: 40px 36px;
+}
+
+.enquire-form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  margin-bottom: 20px;
+}
+
 @media (max-width: 1200px) {
   .discover-container { padding: 0 1.5rem; }
 }
@@ -755,6 +770,7 @@
   .journey__steps::before { display: none; }
   .family__grid   { grid-template-columns: 1fr 1fr; }
   .discover-section { padding: 72px 0; }
+  .enquire-form-box { padding: 28px 24px; }
 }
 
 @media (max-width: 680px) {
@@ -774,4 +790,8 @@
   .hos__photo-col { flex-direction: column; align-items: center; }
   .hos__photo-frame { max-width: 100%; }
   .family__note { flex-direction: column; padding: 24px 20px; }
+  .enquire-form-grid { grid-template-columns: 1fr; }
+  .enquire-form-box { padding: 22px 18px; }
+  .discover-section-title { font-size: clamp(1.8rem, 6vw, 2.8rem); }
+  .discover-section-intro { font-size: clamp(1rem, 3vw, 1.2rem); }
 }

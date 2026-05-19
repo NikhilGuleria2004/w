@@ -1773,6 +1773,18 @@ h1, h2, h3 { margin: 0; font-family: var(--font-serif); }
     gap: 16px;
     align-items: flex-start;
   }
+
+  .testimonials {
+    padding: 72px 0;
+  }
+
+  .testimonials__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .testimonials__card {
+    padding: 28px 24px;
+  }
 }
 
 @media (max-width: 680px) {
@@ -1887,6 +1899,10 @@ h1, h2, h3 { margin: 0; font-family: var(--font-serif); }
     align-items: center;
   }
 
+  .footer__link {
+    font-size: 16px;
+  }
+
   .modal-content {
     width: min(100%, 540px);
     padding: 24px;
@@ -1894,6 +1910,36 @@ h1, h2, h3 { margin: 0; font-family: var(--font-serif); }
 
   .modal-form button {
     width: 100%;
+  }
+
+  .testimonials {
+    padding: 56px 0;
+  }
+
+  .testimonials__grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .testimonials__card {
+    padding: 24px 20px;
+  }
+
+  .testimonials__title {
+    font-size: clamp(1.8rem, 6vw, 2.8rem);
+  }
+
+  .whatsapp-fab {
+    bottom: 16px;
+    right: 16px;
+    width: 48px;
+    height: 48px;
+  }
+
+  .btn-primary,
+  .btn-outline {
+    width: 100%;
+    text-align: center;
   }
 }
 
@@ -1906,6 +1952,10 @@ h1, h2, h3 { margin: 0; font-family: var(--font-serif); }
     gap: 8px;
   }
 
+  .stats-bar__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
   .navbar__link-btn,
   .btn-bordered,
   .btn-primary,
@@ -1913,6 +1963,10 @@ h1, h2, h3 { margin: 0; font-family: var(--font-serif); }
   .btn-action {
     font-size: 14px;
     padding: 12px 18px;
+  }
+
+  .footer__link {
+    font-size: 15px;
   }
 
   .hero__content {
