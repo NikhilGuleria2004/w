@@ -222,13 +222,14 @@ function RevealSection({ children, delay = 0, className = "" }) {
 
 function Modal({ open, onClose, children }) {
   if (!open) return null;
-  return (
+  return createPortal(
     <div className="modal-overlay" onClick={onClose}>
       <div className="modal-content" onClick={(e) => e.stopPropagation()}>
         <button className="modal-close" onClick={onClose}>×</button>
         {children}
       </div>
-    </div>
+    </div>,
+    document.body
   );
 }
 
