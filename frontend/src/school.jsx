@@ -399,7 +399,7 @@ function Hero({ onNavigate }) {
         <div style={fadeStyle(600)}>
           <p className="hero__subtitle">
             Bringing 453 years of School heritage to India — a world-class IB education
-            at Duke Infosys, Sector 45, Chandigarh.
+            at the School School of Schools in School Lane, School Ganj, School Nagar, School Pradesh.  
           </p>
         </div>
 
@@ -418,7 +418,7 @@ function Hero({ onNavigate }) {
   );
 }
 
-/* ── Stats Bar ────────────────────────────────────────────── */
+/* ── Stats Bar ────────────────────────────────────────────── */ 
 function StatsBar() {
   return (
     <section className="stats-bar">
