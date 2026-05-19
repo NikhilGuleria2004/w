@@ -4,7 +4,7 @@ import "./School.css";
 
 /* ── Data ─────────────────────────────────────────────────── */
 const NAV_LINKS = [
-  { label: "Discover",       sub: ["Overview", "School Heritage", "Head of School", "The Journey", "Family of Schools"] },
+  { label: "Discover",       sub: [] },
   { label: "Learning",       sub: [] },
   { label: "Admissions",     sub: [] },
   { label: "Beyond Learning",sub: [] },
