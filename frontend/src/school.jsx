@@ -5,10 +5,10 @@ import "./School.css";
 /* ── Data ─────────────────────────────────────────────────── */
 const NAV_LINKS = [
   { label: "Discover",       sub: ["Overview", "School Heritage", "Head of School", "The Journey", "Family of Schools"] },
-  { label: "Learning",       sub: ["Primary School", "Lower Secondary", "Upper Secondary", "Sixth Form"] },
-  { label: "Admissions",     sub: ["Overview", "Admissions Process", "Term Dates", "FAQs", "Fees"] },
-  { label: "Beyond Learning",sub: ["Holistic Education", "Co-Curricular Activities", "Sports at School"] },
-  { label: "Boarding",       sub: ["Overview", "House System", "Pastoral Care", "Boarding Life"] },
+  { label: "Learning",       sub: [] },
+  { label: "Admissions",     sub: [] },
+  { label: "Beyond Learning",sub: [] },
+  { label: "Boarding",       sub: [] },
   { label: "Facilities",     sub: [] },
 ];
 
@@ -166,9 +166,21 @@ const CONTACT_ITEMS = [
 ];
 
 const FOOTER_COLS = [
-  { heading: "Discover",   links: ["Overview", "School Heritage", "Head of School", "Family of Schools"] },
-  { heading: "Admissions", links: ["Apply Now", "Process", "Term Dates", "FAQs", "Fees"] },
-  { heading: "Connect",    links: ["Contact Us", "Careers", "Virtual Tour", "Parent Login"] },
+  { heading: "Discover", links: [
+    { label: "Overview",          path: "/discover/overview" },
+    { label: "School Heritage",   path: "/discover/school-heritage" },
+    { label: "Head of School",    path: "/discover/head-of-school" },
+    { label: "Family of Schools", path: "/discover/family-of-schools" },
+  ]},
+  { heading: "Explore", links: [
+    { label: "Learning",    path: "/learning" },
+    { label: "Admissions",  path: "/admissions" },
+    { label: "Boarding",    path: "/boarding" },
+    { label: "Facilities",  path: "/facilities" },
+  ]},
+  { heading: "Connect", links: [
+    { label: "Enquire Now", path: "/enquire" },
+  ]},
 ];
 
 /* ── Hooks ────────────────────────────────────────────────── */
@@ -706,12 +718,12 @@ export function Footer({ onNavigate }) {
               <p className="footer__col-heading">{col.heading}</p>
               {col.links.map((l) => (
                 <button
-                  key={l}
+                  key={l.label}
                   type="button"
                   className="footer__link"
-                  onClick={() => onNavigate(getRoutePath(l, col.heading))}
+                  onClick={() => onNavigate(l.path)}
                 >
-                  {l}
+                  {l.label}
                 </button>
               ))}
             </div>
