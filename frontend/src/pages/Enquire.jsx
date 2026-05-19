@@ -28,7 +28,7 @@ const CONTACT_POINTS = [
   {
     icon: "◈",
     title: "Email Us",
-    desc: "admissions@schoolbengaluru.edu.in — we aim to respond within one working day.",
+    desc: "admissions@schoolchandigarh.in — we aim to respond within one working day.",
   },
   {
     icon: "◉",
@@ -171,7 +171,7 @@ function EnquireHero({ activeSection }) {
             <>We'd Love to<br /><em>Hear From You</em></>
           )}
           {activeSection === "Next Steps" && (
-            <>Your Path to<br /><em>School Bengaluru</em></>
+            <>Your Path to<br /><em>School of Excellence</em></>
           )}
         </h1>
 
@@ -569,7 +569,7 @@ function ContactUs() {
             {[
               {
                 label: "Address",
-                value: "School Bengaluru, Whitefield, Bengaluru – 560066",
+                value: "Duke Infosys, Sector 45, Chandigarh – 160047",
               },
               {
                 label: "Phone",
@@ -577,7 +577,7 @@ function ContactUs() {
               },
               {
                 label: "Email",
-                value: "admissions@schoolbengaluru.edu.in",
+                value: "admissions@schoolchandigarh.in",
               },
               {
                 label: "Office Hours",
@@ -601,8 +601,8 @@ function ContactUs() {
         <RevealSection delay={150}>
           <div style={{ marginBottom: "48px", borderRadius: "4px", overflow: "hidden", border: "1px solid rgba(200,169,110,0.18)" }}>
             <iframe
-              title="School Bengaluru Campus Location"
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3886.0!2d77.7!3d13.45!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMTPCsDI3JzAwLjAiTiA3N8KwNDInMDAuMCJF!5e0!3m2!1sen!2sin!4v1620000000000!5m2!1sen!2sin"
+              title="Duke Infosys, Sector 45, Chandigarh"
+              src="https://maps.google.com/maps?q=Sector+45,+Chandigarh,+Punjab,+India&output=embed&z=15"
               width="100%"
               height="320"
               style={{ border: 0, display: "block" }}
@@ -624,7 +624,7 @@ function ContactUs() {
                 every step of the way."
               </blockquote>
               <p className="overview__pull-quote-attr">
-                Director of Admissions · School Bengaluru
+                Director of Admissions · School of Excellence Chandigarh
               </p>
             </div>
           </div>

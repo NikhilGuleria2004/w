@@ -236,7 +236,7 @@ function Overview() {
           <RevealSection delay={120}>
             <div className="overview__text">
               <p>
-                Boarding at School Bengaluru offers students a safe,
+                Boarding at School of Excellence Chandigarh offers students a safe,
                 enriching, and vibrant environment where independence,
                 responsibility, and lifelong friendships flourish.
               </p>

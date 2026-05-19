@@ -48,8 +48,8 @@ const HERITAGE_MILESTONES = [
   },
   {
     year: "2024",
-    title: "Bengaluru Campus Opens",
-    desc: "School Bengaluru opened its doors on a 60-acre campus in Devanahalli — the newest jewel in the Family of Schools.",
+    title: "Chandigarh Campus Opens",
+    desc: "School of Excellence Chandigarh opened its doors on a 60-acre campus in Sector 45 — the newest jewel in the Family of Schools.",
   },
 ];
 
@@ -58,7 +58,7 @@ const FAMILY_SCHOOLS = [
   { city: "Singapore", country: "Singapore",      since: "1989", flag: "🇸🇬" },
   { city: "Dubai",     country: "UAE",            since: "2003", flag: "🇦🇪" },
   { city: "Hong Kong", country: "China",          since: "2007", flag: "🇭🇰" },
-  { city: "Bengaluru", country: "India",          since: "2024", flag: "🇮🇳", active: true },
+  { city: "Chandigarh", country: "India",          since: "2024", flag: "🇮🇳", active: true },
   { city: "New York",  country: "United States",  since: "2012", flag: "🇺🇸" },
 ];
 
@@ -176,7 +176,7 @@ function DiscoverHero({ activeSection }) {
           {activeSection === "Family of Schools"&& <>A Global<br /><em>Family</em></>}
         </h1>
         <p className="discover-hero__sub" style={fade(500)}>
-          School Bengaluru · Est. 2024 · Devanahalli Campus
+          School of Excellence · Est. 2024 · Chandigarh Campus
         </p>
       </div>
     </section>
@@ -200,12 +200,12 @@ function Overview() {
           <RevealSection delay={100}>
             <div className="overview__text">
               <p>
-                School Bengaluru is part of one of the world's oldest and most distinguished school families.
+                School of Excellence Chandigarh is part of one of the world's oldest and most distinguished school families.
                 For over four centuries, School has shaped curious minds, compassionate leaders, and global citizens.
               </p>
               <p>
-                Our Bengaluru campus brings this extraordinary heritage to India — a 60-acre environment of learning,
-                sport, arts, and community in the heart of Devanahalli.
+                Our Chandigarh campus brings this extraordinary heritage to India — a 60-acre environment of learning,
+                sport, arts, and community in the heart of Sector 45, Chandigarh.
               </p>
               <p>
                 We offer a rigorous Cambridge and IB curriculum, taught by world-class educators, within a boarding
@@ -307,7 +307,7 @@ function HeadOfSchool() {
               </div>
               <div className="hos__name-plate">
                 <p className="hos__name">Dr. Caroline Pascoe</p>
-                <p className="hos__role">Head of School, Bengaluru</p>
+                <p className="hos__role">Head of School, Chandigarh</p>
               </div>
             </div>
           </RevealSection>
@@ -320,9 +320,9 @@ function HeadOfSchool() {
               </h2>
 
               {[
-                `Welcome to School Bengaluru. We are building something truly exceptional here — a school that honours a 453-year tradition of intellectual rigour while embracing the dynamism and ambition of modern India.`,
+                `Welcome to School of Excellence Chandigarh. We are building something truly exceptional here — a school that honours a 453-year tradition of intellectual rigour while embracing the dynamism and ambition of modern India.`,
                 `At School, we believe that education is not simply the acquisition of knowledge, but the formation of character. We are building young people who are curious, compassionate, and capable of shaping the world — leaders who think deeply, act ethically, and care genuinely.`,
-                `Our campus in Devanahalli is a place of beauty, possibility, and community. I warmly invite you to visit us, meet our staff and students, and discover what a School education can mean for your family.`,
+                `Our campus in Sector 45, Chandigarh is a place of beauty, possibility, and community. I warmly invite you to visit us, meet our staff and students, and discover what a School education can mean for your family.`,
               ].map((para, i) => (
                 <p key={i} className="hos__para">{para}</p>
               ))}

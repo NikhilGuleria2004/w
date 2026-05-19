@@ -201,7 +201,7 @@ function Overview() {
           <RevealSection delay={100}>
             <div className="overview__text">
               <p>
-                At School Bengaluru, learning is a journey that evolves with
+                At School of Excellence Chandigarh, learning is a journey that evolves with
                 every child. From the first years of discovery to university
                 preparation, students are supported academically, socially, and
                 emotionally.

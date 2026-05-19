@@ -59,7 +59,7 @@ const getLegalRoute = (label) => {
 };
 
 const STATS = [
-  { value: "60",     unit: "acre",  label: "Campus in Devanahalli, Bengaluru" },
+  { value: "60",     unit: "acre",  label: "Campus in Sector 45, Chandigarh" },
   { value: "453",    unit: "years", label: "Serving education since 1572" },
   { value: "12,000", unit: "m²",   label: "Academic buildings" },
   { value: "4,500",  unit: "m²",   label: "Multi-use sports hall" },
@@ -100,7 +100,7 @@ const NEWS = [
   {
     title: "Stet Fortuna Cup 2026",
     tag: "Sports",
-    desc: "International schools across Bengaluru competed in two days of intense competition and true sportsmanship.",
+    desc: "International schools across Chandigarh competed in two days of intense competition and true sportsmanship.",
     date: "30 Mar 2026",
   },
   {
@@ -136,7 +136,7 @@ const FACILITIES = [
 
 const TESTIMONIALS = [
   {
-    quote: "Choosing School Bengaluru was the best decision we made for our daughter. The pastoral care is exceptional and she has flourished academically and personally.",
+    quote: "Choosing School of Excellence Chandigarh was the best decision we made for our daughter. The pastoral care is exceptional and she has flourished academically and personally.",
     name: "Priya & Arjun Sharma",
     detail: "Parents of a Year 9 student",
   },
@@ -159,10 +159,10 @@ const ADMISSIONS_BTNS = [
 ];
 
 const CONTACT_ITEMS = [
-  { icon: "📧", key: "Email",   val: "admissions@Schoolbengaluru.in" },
+  { icon: "📧", key: "Email",   val: "admissions@schoolchandigarh.in" },
   { icon: "📞", key: "Phone",   val: "+91 80352 74300" },
   { icon: "📞", key: "Telephone",        val: "+91 92204 43344" },
-  { icon: "📍", key: "Address", val: "Devanahalli, NH-648, Bengaluru 562110" },
+  { icon: "📍", key: "Address", val: "Duke Infosys, Sector 45, Chandigarh" },
 ];
 
 const FOOTER_COLS = [
@@ -386,7 +386,7 @@ function Hero({ onNavigate }) {
         <div style={fadeStyle(600)}>
           <p className="hero__subtitle">
             Bringing 453 years of School heritage to India — a world-class IB education
-            on a 60-acre campus in the heart of Bengaluru.
+            at Duke Infosys, Sector 45, Chandigarh.
           </p>
         </div>
 
@@ -489,7 +489,7 @@ function HeadSection() {
                 A Welcome from the<br />Head of School
               </h2>
               <p className="head__quote">
-                "At School Bengaluru, we believe that education is not simply the acquisition of knowledge,
+                "At School of Excellence Chandigarh, we believe that education is not simply the acquisition of knowledge,
                 but the formation of character — building young people who are curious, compassionate,
                 and capable of shaping the world."
               </p>
@@ -609,7 +609,7 @@ function AdmissionsSection({ onOpenModal }) {
               <p className="section-label">Admissions 2026</p>
               <h2 className="admissions__title">Begin Your School Journey</h2>
               <p className="admissions__desc">
-                School Bengaluru is now accepting applications for boys and girls aged 4 to 17
+                School of Excellence Chandigarh is now accepting applications for boys and girls aged 4 to 17
                 (LKG to Grade 12), joining us in August 2026.
               </p>
               <div className="admissions__buttons">
@@ -720,7 +720,7 @@ export function Footer({ onNavigate }) {
 
         <div className="footer__bottom">
           <p className="footer__copy">
-            © 2026 School International School Bengaluru. All rights reserved.
+            © 2026 School of Excellence Chandigarh. All rights reserved.
           </p>
           <div className="footer__legal">
             {["Privacy Policy", "Terms & Conditions", "Sitemap"].map((l) => (

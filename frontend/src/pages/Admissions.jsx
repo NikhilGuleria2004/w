@@ -224,7 +224,7 @@ function Overview() {
             style={{ maxWidth: "720px", margin: "0 auto" }}
           >
             <p>
-              Joining School Bengaluru means becoming part of a vibrant and
+              Joining School of Excellence Chandigarh means becoming part of a vibrant and
               globally connected learning community rooted in excellence,
               character, and opportunity.
             </p>

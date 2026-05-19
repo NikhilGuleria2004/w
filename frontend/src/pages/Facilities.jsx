@@ -235,7 +235,7 @@ function Overview() {
         <RevealSection>
           <div className="discover-section-header">
             <h2 className="discover-section-title">
-              A Campus Designed for Excellence
+              Our Chandigarh Campus
             </h2>
             <p className="discover-section-intro">Facilities</p>
           </div>
@@ -245,7 +245,7 @@ function Overview() {
           <RevealSection delay={120}>
             <div className="overview__text">
               <p>
-                Our campus has been thoughtfully designed to provide every
+                Our Chandigarh campus at Duke Infosys, Sector 45 has been thoughtfully designed to provide every
                 student with the very best environment for learning, creativity,
                 sport, and personal growth.
               </p>

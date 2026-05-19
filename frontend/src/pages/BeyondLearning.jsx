@@ -235,7 +235,7 @@ function Overview() {
           <RevealSection delay={120}>
             <div className="overview__text">
               <p>
-                At School Bengaluru, education extends far beyond academic
+                At School of Excellence Chandigarh, education extends far beyond academic
                 achievement. Students are encouraged to discover passions,
                 develop talents, and build character through a rich and
                 balanced school experience.
