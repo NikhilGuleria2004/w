@@ -652,7 +652,7 @@ function ContactUs() {
 function NextSteps() {
   return (
     <section className="discover-section">
-      <div className="discover-container">
+      <div className="discover-container" >
 
         <RevealSection>
           <div className="discover-section-header">
@@ -663,7 +663,7 @@ function NextSteps() {
           </div>
         </RevealSection>
 
-        <div className="journey__steps" style={{ marginBottom: "64px" }}>
+        <div className="journey__steps" style={{ marginBottom: "64px" }}>   
           {VISIT_STEPS.map((s, i) => (
             <RevealSection key={s.step} delay={i * 120}>
               <div className="journey__step">
