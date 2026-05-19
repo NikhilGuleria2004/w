@@ -598,19 +598,27 @@ function ContactUs() {
         </RevealSection>
 
         {/* Google Maps embed */}
+       {/* Google Maps embed */}
         <RevealSection delay={150}>
-          <div style={{ marginBottom: "48px", borderRadius: "4px", overflow: "hidden", border: "1px solid rgba(200,169,110,0.18)" }}>
+        <div
+            style={{
+            marginBottom: "48px",
+            borderRadius: "4px",
+            overflow: "hidden",
+            border: "1px solid rgba(200,169,110,0.18)"
+            }}
+        >
             <iframe
-              title="Duke Infosys, Sector 45, Chandigarh"
-              src="https://maps.google.com/maps?q=Sector+45,+Chandigarh,+Punjab,+India&output=embed&z=15"
-              width="100%"
-              height="320"
-              style={{ border: 0, display: "block" }}
-              allowFullScreen=""
-              loading="lazy"
-              referrerPolicy="no-referrer-when-downgrade"
+            title="Duke Infosys, Sector 45, Chandigarh"
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3430.4773348578524!2d76.75503187635734!3d30.70497858697222!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390fedb2750a2509%3A0xda7ee99548707bc6!2sDuke%20Infosys%20-%20Software%20Development%20Company%20In%20Chandigarh!5e0!3m2!1sen!2sin!4v1779169574593!5m2!1sen!2sin"
+            width="100%"
+            height="320"
+            style={{ border: 0, display: "block" }}
+            loading="lazy"
+            allowFullScreen
+            referrerPolicy="no-referrer-when-downgrade"
             />
-          </div>
+        </div>
         </RevealSection>
 
         {/* Pull quote */}
@@ -665,7 +673,7 @@ function NextSteps() {
               </div>
             </RevealSection>
           ))}
-        </div>
+        </div>     
 
         <RevealSection delay={200}>
           <div className="journey__cta-row">
@@ -674,11 +682,11 @@ function NextSteps() {
           </div>
         </RevealSection>
 
-      </div>
+      </div> 
     </section>
   );
 }
-
+   
 /* ── Section Map ──────────────────────────────────────────── */
 const SECTION_MAP = {
   "Enquire Now": <EnquireNow />,
