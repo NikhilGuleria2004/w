@@ -197,14 +197,40 @@ function EnquireNow() {
     message: "",
   });
   const [submitted, setSubmitted] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [errors, setErrors] = useState({});
 
   const handleChange = (e) => {
-    setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+    if (errors[name]) setErrors((prev) => ({ ...prev, [name]: "" }));
+  };
+
+  const validate = () => {
+    const newErrors = {};
+    if (!formData.parentName.trim()) newErrors.parentName = "Please enter your name.";
+    if (!formData.email.trim()) {
+      newErrors.email = "Please enter your email.";
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
+      newErrors.email = "Please enter a valid email address.";
+    }
+    if (!formData.phone.trim()) newErrors.phone = "Please enter your phone number.";
+    if (!formData.yearGroup) newErrors.yearGroup = "Please select a year group.";
+    return newErrors;
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setSubmitted(true);
+    const newErrors = validate();
+    if (Object.keys(newErrors).length > 0) {
+      setErrors(newErrors);
+      return;
+    }
+    setLoading(true);
+    setTimeout(() => {
+      setLoading(false);
+      setSubmitted(true);
+    }, 1400);
   };
 
   /* shared input style — uses CSS vars from Pages.css token set */
@@ -220,6 +246,13 @@ function EnquireNow() {
     outline: "none",
     transition: "border-color 0.25s",
     boxSizing: "border-box",
+  };
+
+  const errorStyle = {
+    fontFamily: "var(--font-body)",
+    fontSize: "13px",
+    color: "rgba(220,80,80,0.9)",
+    marginTop: "6px",
   };
 
   const labelStyle = {
@@ -336,21 +369,18 @@ function EnquireNow() {
               >
                 {/* Parent / Guardian Name */}
                 <div style={fieldStyle}>
-                  <label style={labelStyle}>Parent / Guardian Name</label>
+                  <label style={labelStyle}>Parent / Guardian Name *</label>
                   <input
-                    style={inputStyle}
+                    style={{ ...inputStyle, borderColor: errors.parentName ? "rgba(220,80,80,0.7)" : "rgba(255,255,255,0.1)" }}
                     type="text"
                     name="parentName"
                     value={formData.parentName}
                     onChange={handleChange}
                     placeholder="Your full name"
-                    onFocus={(e) =>
-                      (e.target.style.borderColor = "rgba(200,169,110,0.6)")
-                    }
-                    onBlur={(e) =>
-                      (e.target.style.borderColor = "rgba(255,255,255,0.1)")
-                    }
+                    onFocus={(e) => (e.target.style.borderColor = "rgba(200,169,110,0.6)")}
+                    onBlur={(e) => (e.target.style.borderColor = errors.parentName ? "rgba(220,80,80,0.7)" : "rgba(255,255,255,0.1)")}
                   />
+                  {errors.parentName && <span style={errorStyle}>{errors.parentName}</span>}
                 </div>
 
                 {/* Child's Name */}
@@ -363,89 +393,67 @@ function EnquireNow() {
                     value={formData.childName}
                     onChange={handleChange}
                     placeholder="Child's full name"
-                    onFocus={(e) =>
-                      (e.target.style.borderColor = "rgba(200,169,110,0.6)")
-                    }
-                    onBlur={(e) =>
-                      (e.target.style.borderColor = "rgba(255,255,255,0.1)")
-                    }
+                    onFocus={(e) => (e.target.style.borderColor = "rgba(200,169,110,0.6)")}
+                    onBlur={(e) => (e.target.style.borderColor = "rgba(255,255,255,0.1)")}
                   />
                 </div>
 
                 {/* Email */}
                 <div style={fieldStyle}>
-                  <label style={labelStyle}>Email Address</label>
+                  <label style={labelStyle}>Email Address *</label>
                   <input
-                    style={inputStyle}
+                    style={{ ...inputStyle, borderColor: errors.email ? "rgba(220,80,80,0.7)" : "rgba(255,255,255,0.1)" }}
                     type="email"
                     name="email"
                     value={formData.email}
                     onChange={handleChange}
                     placeholder="your@email.com"
-                    onFocus={(e) =>
-                      (e.target.style.borderColor = "rgba(200,169,110,0.6)")
-                    }
-                    onBlur={(e) =>
-                      (e.target.style.borderColor = "rgba(255,255,255,0.1)")
-                    }
+                    onFocus={(e) => (e.target.style.borderColor = "rgba(200,169,110,0.6)")}
+                    onBlur={(e) => (e.target.style.borderColor = errors.email ? "rgba(220,80,80,0.7)" : "rgba(255,255,255,0.1)")}
                   />
+                  {errors.email && <span style={errorStyle}>{errors.email}</span>}
                 </div>
 
                 {/* Phone */}
                 <div style={fieldStyle}>
-                  <label style={labelStyle}>Phone Number</label>
+                  <label style={labelStyle}>Phone Number *</label>
                   <input
-                    style={inputStyle}
+                    style={{ ...inputStyle, borderColor: errors.phone ? "rgba(220,80,80,0.7)" : "rgba(255,255,255,0.1)" }}
                     type="tel"
                     name="phone"
                     value={formData.phone}
                     onChange={handleChange}
                     placeholder="+91 00000 00000"
-                    onFocus={(e) =>
-                      (e.target.style.borderColor = "rgba(200,169,110,0.6)")
-                    }
-                    onBlur={(e) =>
-                      (e.target.style.borderColor = "rgba(255,255,255,0.1)")
-                    }
+                    onFocus={(e) => (e.target.style.borderColor = "rgba(200,169,110,0.6)")}
+                    onBlur={(e) => (e.target.style.borderColor = errors.phone ? "rgba(220,80,80,0.7)" : "rgba(255,255,255,0.1)")}
                   />
+                  {errors.phone && <span style={errorStyle}>{errors.phone}</span>}
                 </div>
               </div>
 
               {/* Year Group */}
               <div style={{ ...fieldStyle, marginBottom: "20px" }}>
-                <label style={labelStyle}>Year Group of Interest</label>
+                <label style={labelStyle}>Year Group of Interest *</label>
                 <select
                   style={{
                     ...inputStyle,
                     appearance: "none",
                     cursor: "pointer",
-                    color: formData.yearGroup
-                      ? "var(--white)"
-                      : "rgba(255,255,255,0.3)",
+                    borderColor: errors.yearGroup ? "rgba(220,80,80,0.7)" : "rgba(255,255,255,0.1)",
+                    color: formData.yearGroup ? "var(--white)" : "rgba(255,255,255,0.3)",
                   }}
                   name="yearGroup"
                   value={formData.yearGroup}
                   onChange={handleChange}
-                  onFocus={(e) =>
-                    (e.target.style.borderColor = "rgba(200,169,110,0.6)")
-                  }
-                  onBlur={(e) =>
-                    (e.target.style.borderColor = "rgba(255,255,255,0.1)")
-                  }
+                  onFocus={(e) => (e.target.style.borderColor = "rgba(200,169,110,0.6)")}
+                  onBlur={(e) => (e.target.style.borderColor = errors.yearGroup ? "rgba(220,80,80,0.7)" : "rgba(255,255,255,0.1)")}
                 >
-                  <option value="" disabled>
-                    Select a year group
-                  </option>
+                  <option value="" disabled>Select a year group</option>
                   {YEAR_GROUPS.map((y) => (
-                    <option
-                      key={y}
-                      value={y}
-                      style={{ background: "#0a1223", color: "var(--white)" }}
-                    >
-                      {y}
-                    </option>
+                    <option key={y} value={y} style={{ background: "#0a1223", color: "var(--white)" }}>{y}</option>
                   ))}
                 </select>
+                {errors.yearGroup && <span style={errorStyle}>{errors.yearGroup}</span>}
               </div>
 
               {/* Reason for Enquiry */}
@@ -510,10 +518,11 @@ function EnquireNow() {
 
               <button
                 className="btn-discover-primary"
-                style={{ width: "100%" }}
+                style={{ width: "100%", opacity: loading ? 0.7 : 1, cursor: loading ? "not-allowed" : "pointer" }}
                 onClick={handleSubmit}
+                disabled={loading}
               >
-                Submit Enquiry
+                {loading ? "Submitting…" : "Submit Enquiry"}
               </button>
             </div>
           </RevealSection>
@@ -599,6 +608,22 @@ function ContactUs() {
                 </p>
               </div>
             ))}
+          </div>
+        </RevealSection>
+
+        {/* Google Maps embed */}
+        <RevealSection delay={150}>
+          <div style={{ marginBottom: "48px", borderRadius: "4px", overflow: "hidden", border: "1px solid rgba(200,169,110,0.18)" }}>
+            <iframe
+              title="School Bengaluru Campus Location"
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3886.0!2d77.7!3d13.45!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMTPCsDI3JzAwLjAiTiA3N8KwNDInMDAuMCJF!5e0!3m2!1sen!2sin!4v1620000000000!5m2!1sen!2sin"
+              width="100%"
+              height="320"
+              style={{ border: 0, display: "block" }}
+              allowFullScreen=""
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+            />
           </div>
         </RevealSection>
 

@@ -52,6 +52,16 @@ h1, h2, h3 { margin: 0; font-family: var(--font-serif); }
   to   { transform: rotate(360deg); }
 }
 
+/* ── Page Transition ──────────────────────────────────────── */
+@keyframes pageFadeIn {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.page-fade-in {
+  animation: pageFadeIn 0.35s ease both;
+}
+
 /* ── App Root ─────────────────────────────────────────────── */
 .app-root {
   font-family: var(--font-body);
@@ -241,6 +251,7 @@ h1, h2, h3 { margin: 0; font-family: var(--font-serif); }
 }
 
 .navbar__link-btn:hover { color: var(--gold); }
+.navbar__link-btn--active { color: var(--gold) !important; }
 
 .navbar__dropdown {
   position: absolute;
@@ -1434,6 +1445,118 @@ h1, h2, h3 { margin: 0; font-family: var(--font-serif); }
 }
 
 .footer__link:hover { color: var(--gold); }
+
+/* ── Testimonials ─────────────────────────────────────────── */
+.testimonials {
+  padding: 100px 0;
+  background: var(--navy-mid);
+}
+
+.testimonials__header {
+  text-align: center;
+  margin-bottom: 64px;
+}
+
+.testimonials__title {
+  font-family: var(--font-serif);
+  font-size: clamp(32px, 4vw, 52px);
+  font-weight: 700;
+  color: var(--white);
+  margin-top: 12px;
+}
+
+.testimonials__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 28px;
+}
+
+.testimonials__card {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(200, 169, 110, 0.18);
+  border-radius: 4px;
+  padding: 36px 32px 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  transition: border-color 0.3s, transform 0.3s;
+}
+
+.testimonials__card:hover {
+  border-color: rgba(200, 169, 110, 0.45);
+  transform: translateY(-4px);
+}
+
+.testimonials__quote-mark {
+  font-family: var(--font-serif);
+  font-size: 72px;
+  line-height: 0.6;
+  color: var(--gold);
+  opacity: 0.5;
+}
+
+.testimonials__quote {
+  font-family: var(--font-body);
+  font-size: 18px;
+  font-style: italic;
+  color: rgba(255, 255, 255, 0.75);
+  line-height: 1.75;
+  flex: 1;
+}
+
+.testimonials__author {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-top: 8px;
+}
+
+.testimonials__author-line {
+  width: 32px;
+  height: 2px;
+  background: var(--gold);
+  flex-shrink: 0;
+}
+
+.testimonials__author-name {
+  font-family: var(--font-body);
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--white);
+  letter-spacing: 0.05em;
+}
+
+.testimonials__author-detail {
+  font-family: var(--font-body);
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.4);
+  margin-top: 2px;
+  letter-spacing: 0.05em;
+}
+
+/* ── WhatsApp FAB ─────────────────────────────────────────── */
+.whatsapp-fab {
+  position: fixed;
+  bottom: 32px;
+  right: 32px;
+  z-index: 999;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: #25D366;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 20px rgba(37, 211, 102, 0.4);
+  transition: transform 0.2s, box-shadow 0.2s;
+  text-decoration: none;
+}
+
+.whatsapp-fab:hover {
+  transform: scale(1.1);
+  box-shadow: 0 6px 28px rgba(37, 211, 102, 0.55);
+}
 
 .footer__bottom {
   border-top: 1px solid rgba(255, 255, 255, 0.06);

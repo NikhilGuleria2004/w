@@ -134,6 +134,24 @@ const FACILITIES = [
   { icon: "🍽️", label: "Dining Hall" },
 ];
 
+const TESTIMONIALS = [
+  {
+    quote: "Choosing School Bengaluru was the best decision we made for our daughter. The pastoral care is exceptional and she has flourished academically and personally.",
+    name: "Priya & Arjun Sharma",
+    detail: "Parents of a Year 9 student",
+  },
+  {
+    quote: "The IB curriculum combined with world-class facilities gives our son a truly global education. The teachers genuinely know each child as an individual.",
+    name: "Meena & Rajesh Nair",
+    detail: "Parents of a Sixth Form student",
+  },
+  {
+    quote: "From the first open day to settling in, the Admissions Team made the entire process seamless. Our children have never been happier in school.",
+    name: "Sunita & Vikram Patel",
+    detail: "Parents of two students",
+  },
+];
+
 const ADMISSIONS_BTNS = [
   { label: "Apply to Enrol",         primary: true },
   { label: "Request a Campus Visit", primary: false },
@@ -203,7 +221,7 @@ function Modal({ open, onClose, children }) {
 }
 
 /* ── Navbar ───────────────────────────────────────────────── */
-export function Navbar({ onNavigate }) {
+export function Navbar({ onNavigate, pathname = '/' }) {
   const [activeMenu, setActiveMenu] = useState(null);
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -246,7 +264,7 @@ export function Navbar({ onNavigate }) {
                 onMouseEnter={() => setActiveMenu(link.label)}
                 onMouseLeave={() => setActiveMenu(null)}
               >
-                <button type="button" className="navbar__link-btn" onClick={() => onNavigate(getRoutePath(link.label, link.label))}>{link.label}</button>
+                <button type="button" className={`navbar__link-btn${pathname.startsWith(getRoutePath(link.label, link.label)) ? ' navbar__link-btn--active' : ''}`} onClick={() => onNavigate(getRoutePath(link.label, link.label))}>{link.label}</button>
                 {link.sub.length > 0 && activeMenu === link.label && (
                   <div className="navbar__dropdown">
                     {link.sub.map((s) => (
@@ -629,6 +647,39 @@ function AdmissionsSection({ onOpenModal }) {
   );
 }
 
+/* ── Testimonials ─────────────────────────────────────────── */
+function TestimonialsSection() {
+  return (
+    <section className="testimonials section-deep">
+      <div className="container">
+        <RevealSection>
+          <div className="testimonials__header">
+            <p className="section-label">Parent Voices</p>
+            <h2 className="testimonials__title">Families Who Chose Us</h2>
+          </div>
+        </RevealSection>
+        <div className="testimonials__grid">
+          {TESTIMONIALS.map((t, i) => (
+            <RevealSection key={t.name} delay={i * 120}>
+              <div className="testimonials__card">
+                <div className="testimonials__quote-mark">"</div>
+                <p className="testimonials__quote">{t.quote}</p>
+                <div className="testimonials__author">
+                  <div className="testimonials__author-line" />
+                  <div>
+                    <p className="testimonials__author-name">{t.name}</p>
+                    <p className="testimonials__author-detail">{t.detail}</p>
+                  </div>
+                </div>
+              </div>
+            </RevealSection>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
 /* ── Footer ───────────────────────────────────────────────── */
 export function Footer({ onNavigate }) {
   return (
@@ -703,6 +754,7 @@ export default function School({ onNavigate }) {
       <HeadSection />
       <FacilitiesSection />
       <NewsSection />
+      <TestimonialsSection />
       <AdmissionsSection onOpenModal={() => setModalOpen(true)} />
       
       <Modal open={modalOpen} onClose={() => setModalOpen(false)}>
