@@ -1144,15 +1144,17 @@ h1, h2, h3 { margin: 0; font-family: var(--font-serif); }
 
 /* ── News Section ─────────────────────────────────────────── */
 .news__header {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-end;
+  position: relative;
+  text-align: center;
   margin-bottom: 56px;
 }
 
 .news__controls {
   display: flex;
   gap: 8px;
+  position: absolute;
+  right: 0;
+  bottom: 0;
 }
 
 .news__nav-btn {
