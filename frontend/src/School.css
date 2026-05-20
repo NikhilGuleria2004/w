@@ -1472,7 +1472,9 @@ h1, h2, h3 { margin: 0; font-family: var(--font-serif); }
 .testimonials__grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
+  grid-auto-rows: 1fr;
   gap: 28px;
+  align-items: stretch;
 }
 
 .testimonials__card {
@@ -1483,6 +1485,8 @@ h1, h2, h3 { margin: 0; font-family: var(--font-serif); }
   display: flex;
   flex-direction: column;
   gap: 20px;
+  height: 100%;
+  box-sizing: border-box;
   transition: border-color 0.3s, transform 0.3s;
 }
 
@@ -1512,7 +1516,7 @@ h1, h2, h3 { margin: 0; font-family: var(--font-serif); }
   display: flex;
   align-items: center;
   gap: 16px;
-  margin-top: 8px;
+  margin-top: auto;
 }
 
 .testimonials__author-line {
