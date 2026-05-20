@@ -1825,8 +1825,15 @@ h1, h2, h3 { margin: 0; font-family: var(--font-serif); }
     margin: 0 auto 28px;
   }
 
-  .section-dark + .section-mid {
-    padding-top: 0;
+  .section-dark + .section-mid,
+  .section-mid + .section-dark {
+    padding-top: 40px;
+    border-top: 1px solid rgba(200, 169, 110, 0.12);
+  }
+
+  .section-dark:has(+ .section-mid),
+  .section-mid:has(+ .section-dark) {
+    padding-bottom: 40px;
   }
 
   .stats-bar__item {
