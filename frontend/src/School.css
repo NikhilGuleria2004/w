@@ -1904,8 +1904,23 @@ h1, h2, h3 { margin: 0; font-family: var(--font-serif); }
     width: 100%;
   }
 
+  /* Parent Voices: tighten space above (from News section + section padding) */
+  .section-mid:has(+ .testimonials) {
+    padding-bottom: 24px;
+  }
+
   .testimonials {
-    padding: 56px 0;
+    padding-top: 24px;
+    padding-bottom: 40px;
+  }
+
+  /* Admissions 2026: tighten space above (from Parent Voices section) */
+  .testimonials:has(+ .section-dark) {
+    padding-bottom: 24px;
+  }
+
+  .testimonials + .section-dark {
+    padding-top: 24px;
   }
 
   .testimonials__grid {
