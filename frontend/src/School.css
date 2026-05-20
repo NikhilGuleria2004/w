@@ -836,18 +836,22 @@ h1, h2, h3 { margin: 0; font-family: var(--font-serif); }
   }
 
   .learning__grid {
-    gap: 24px;
+    gap: 32px;
   }
 
   .learning__card {
     min-height: 340px;
-    background: rgba(255, 255, 255, 0.02);
+    background: rgba(255, 255, 255, 0.025);
     backdrop-filter: blur(10px);
   }
 
   .learning__card:hover {
     transform: translateY(-6px);
-    box-shadow: 0 18px 45px rgba(0, 0, 0, 0.16);
+    box-shadow: 0 18px 45px rgba(0, 0, 0, 0.18);
+  }
+
+  .learning__card--active {
+    box-shadow: 0 10px 36px rgba(200, 169, 110, 0.14) !important;
   }
 
   .head__grid {
@@ -905,7 +909,7 @@ h1, h2, h3 { margin: 0; font-family: var(--font-serif); }
 .learning__grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 2px;
+  gap: 12px;
   grid-auto-rows: 1fr;
 }
 
@@ -914,23 +918,25 @@ h1, h2, h3 { margin: 0; font-family: var(--font-serif); }
   cursor: pointer;
   position: relative;
   overflow: hidden;
-  border: 1px solid rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.07);
   border-radius: 4px;
   transition: background 0.3s ease, border-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
   background: rgba(255, 255, 255, 0.02);
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.12);
   height: 100%;
 }
 
 .learning__card:hover {
-  background: rgba(255, 255, 255, 0.04);
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(255, 255, 255, 0.1);
   transform: translateY(-4px);
-  box-shadow: 0 8px 30px rgba(200, 169, 110, 0.15);
+  box-shadow: 0 8px 30px rgba(200, 169, 110, 0.18);
 }
 
 .learning__card--active {
-  background: rgba(200, 169, 110, 0.07) !important;
-  border-color: rgba(200, 169, 110, 0.4) !important;
+  background: rgba(200, 169, 110, 0.09) !important;
+  border-color: rgba(200, 169, 110, 0.45) !important;
+  box-shadow: 0 6px 28px rgba(200, 169, 110, 0.12) !important;
   transform: none !important;
   scale: 1 !important;
 }
