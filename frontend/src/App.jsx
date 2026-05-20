@@ -29,9 +29,9 @@ const ROUTES = {
   '/admissions/fees': { component: PAGE_COMPONENTS.Fees, title: 'Fees' },
 
   '/beyond-learning': { component: PAGE_COMPONENTS['Beyond Learning'], title: 'Beyond Learning' },
-  '/beyond-learning/holistic-education': { component: PAGE_COMPONENTS['Holistic Education'], title: 'Holistic Education' },
-  '/beyond-learning/co-curricular-activities': { component: PAGE_COMPONENTS['Co-Curricular Activities'], title: 'Co-Curricular Activities' },
-  '/beyond-learning/sports-at-school': { component: PAGE_COMPONENTS['Sports at School'], title: 'Sports at School' },
+  '/beyond-learning/holistic-education': { component: PAGE_COMPONENTS['Holistic Education'], props: { initialSection: 'Holistic Education' }, title: 'Holistic Education' },
+  '/beyond-learning/co-curricular-activities': { component: PAGE_COMPONENTS['Co-Curricular Activities'], props: { initialSection: 'Co-Curricular Activities' }, title: 'Co-Curricular Activities' },
+  '/beyond-learning/sports-at-school': { component: PAGE_COMPONENTS['Sports at School'], props: { initialSection: 'Sports at School' }, title: 'Sports at School' },
 
   '/boarding': { component: PAGE_COMPONENTS.Boarding, title: 'Boarding' },
   '/boarding/overview': { component: PAGE_COMPONENTS.Boarding, title: 'Boarding' },

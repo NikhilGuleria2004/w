@@ -15,9 +15,6 @@ import TermDates from './TermDates.jsx';
 import FAQs from './FAQs.jsx';
 import Fees from './Fees.jsx';
 import BeyondLearning from './BeyondLearning.jsx';
-import HolisticEducation from './HolisticEducation.jsx';
-import CoCurricularActivities from './CoCurricularActivities.jsx';
-import SportsAtSchool from './SportsAtSchool.jsx';
 import Boarding from './Boarding.jsx';
 import HouseSystem from './HouseSystem.jsx';
 import PastoralCare from './PastoralCare.jsx';
@@ -35,6 +32,9 @@ import Sitemap from './Sitemap.jsx';
 import Enquire from './Enquire.jsx';
 
 const createDiscoverSection = (section) => (props) => <Discover {...props} initialSection={section} />;
+const createBeyondLearningSection = (section) => (props) => (
+  <BeyondLearning {...props} initialSection={section} />
+);
 
 export const PAGE_COMPONENTS = {
   Discover,
@@ -54,9 +54,9 @@ export const PAGE_COMPONENTS = {
   FAQs,
   Fees,
   'Beyond Learning': BeyondLearning,
-  'Holistic Education': HolisticEducation,
-  'Co-Curricular Activities': CoCurricularActivities,
-  'Sports at School': SportsAtSchool,
+  'Holistic Education': createBeyondLearningSection('Holistic Education'),
+  'Co-Curricular Activities': createBeyondLearningSection('Co-Curricular Activities'),
+  'Sports at School': createBeyondLearningSection('Sports at School'),
   Boarding,
   'House System': HouseSystem,
   'Pastoral Care': PastoralCare,

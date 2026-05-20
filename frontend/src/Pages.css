@@ -131,7 +131,7 @@
   z-index: 90;
   background: rgba(10,18,35,0.97);
   backdrop-filter: blur(12px);
-  border-bottom: 1px solid rgba(200,169,110,0.2);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.35);
 }
 
 .discover-subnav__inner {
@@ -534,6 +534,10 @@
   height: 1px;
   background: rgba(200,169,110,0.25);
   z-index: 0;
+}
+
+.journey__steps:has(.overview__value-item)::before {
+  display: none;
 }
 
 .journey__step {

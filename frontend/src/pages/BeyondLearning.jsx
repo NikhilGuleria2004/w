@@ -91,7 +91,7 @@ function useScrollReveal(threshold = 0.12) {
 }
 
 // Fix: visible → translateY(0), hidden → translateY(36px)
-function RevealSection({ children, delay = 0, className = "" }) {
+function RevealSection({ children, delay = 0, className = "", style = {} }) {
   const [ref, visible] = useScrollReveal();
 
   return (
@@ -102,6 +102,7 @@ function RevealSection({ children, delay = 0, className = "" }) {
         opacity: visible ? 1 : 0,
         transform: visible ? "translateY(0)" : "translateY(36px)",
         transition: `opacity 0.75s ease ${delay}ms, transform 0.75s ease ${delay}ms`,
+        ...style,
       }}
     >
       {children}
@@ -317,8 +318,7 @@ function HolisticEducation() {
 }
 
 /* ── Co-Curricular Activities ─────────────────────────────── */
-// activities__grid / activities__card → journey__steps / family__card pattern
-// Uses: .journey__steps for the grid, .overview__value-item for each card
+// 2-col card grid + .overview__value-item (not .journey__steps — its ::before line is for the timeline)
 function CoCurricularActivities() {
   return (
     <section className="discover-section">
@@ -333,15 +333,17 @@ function CoCurricularActivities() {
           </div>
         </RevealSection>
 
-        <div className="journey__steps" style={{ gridTemplateColumns: "repeat(2, 1fr)", gap: "16px" }}>
+        <div className="overview__card-grid">
           {CO_CURRICULARS.map((a, i) => (
-            <RevealSection key={a.title} delay={i * 120}>
-              <div className="overview__value-item" style={{ flexDirection: "column", gap: "12px" }}>
-                <span style={{ fontSize: "28px" }}>{a.icon}</span>
-                <div>
-                  <h3 className="overview__value-title">{a.title}</h3>
-                  <p className="overview__value-desc">{a.desc}</p>
-                </div>
+            <RevealSection
+              key={a.title}
+              delay={i * 120}
+              className="overview__value-item overview__value-item--stacked"
+            >
+              <span className="overview__value-emoji">{a.icon}</span>
+              <div>
+                <h3 className="overview__value-title">{a.title}</h3>
+                <p className="overview__value-desc">{a.desc}</p>
               </div>
             </RevealSection>
           ))}
@@ -402,6 +404,10 @@ const SECTION_MAP = {
 // Uses: .discover-root
 export default function BeyondLearning({ initialSection = "Overview" }) {
   const [activeSection, setActiveSection] = useState(initialSection);
+
+  useEffect(() => {
+    setActiveSection(initialSection);
+  }, [initialSection]);
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: "smooth" });
