@@ -700,8 +700,8 @@ h1, h2, h3 { margin: 0; font-family: var(--font-serif); }
 }
 
 /* ── Section Common ───────────────────────────────────────── */
-.section-dark  { background: var(--navy-dark);  padding: 100px 0; }
-.section-mid   { background: var(--navy-mid);   padding: 100px 0; }
+.section-dark  { background: var(--navy-dark);  padding: 60px 0; }
+.section-mid   { background: var(--navy-mid);   padding: 60px 0; }
 .section-dark:has(+ .section-mid) { padding-bottom: 0; }
 .section-dark + .section-mid { padding-top: 0; }
 .section-deep  { background: var(--navy-deep);  padding: 60px 0 32px; }
@@ -800,19 +800,19 @@ h1, h2, h3 { margin: 0; font-family: var(--font-serif); }
   }
 
   .section-dark:has(+ .section-mid) {
-    padding-bottom: 120px;
+    padding-bottom: 70px;
   }
 
   .section-dark + .section-mid {
-    padding-top: 120px;
+    padding-top: 70px;
   }
 
   .section-mid:has(+ .section-dark) {
-    padding-bottom: 120px;
+    padding-bottom: 70px;
   }
 
   .section-mid + .section-dark {
-    padding-top: 120px;
+    padding-top: 70px;
   }
 
   .section-dark:has(+ .section-mid) > :last-child,
@@ -1827,13 +1827,13 @@ h1, h2, h3 { margin: 0; font-family: var(--font-serif); }
 
   .section-dark + .section-mid,
   .section-mid + .section-dark {
-    padding-top: 40px;
+    padding-top: 24px;
     border-top: 1px solid rgba(200, 169, 110, 0.12);
   }
 
   .section-dark:has(+ .section-mid),
   .section-mid:has(+ .section-dark) {
-    padding-bottom: 40px;
+    padding-bottom: 24px;
   }
 
   .stats-bar__item {
