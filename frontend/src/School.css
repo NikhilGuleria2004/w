@@ -1450,7 +1450,7 @@ h1, h2, h3 { margin: 0; font-family: var(--font-serif); }
 
 /* ── Testimonials ─────────────────────────────────────────── */
 .testimonials {
-  padding: 100px 0;
+  padding: 60px 0;
   background: var(--navy-mid);
 }
 
