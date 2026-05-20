@@ -169,21 +169,22 @@ h1, h2, h3 { margin: 0; font-family: var(--font-serif); }
   display: flex;
   align-items: center;
   gap: 12px;
-  margin-left: 24px;
+  margin-left: 1%;
 }
 
 .navbar__logo-badge {
-  width: 40px;
+  width: 55px;
   height: 40px;
   border-radius: 50%;
   background: linear-gradient(135deg, var(--gold), var(--gold-light));
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 18px;
+  font-size: 25px;
   font-weight: 700;
   color: var(--navy-mid);
   font-family: var(--font-serif);
+  margin-left: 5%;
 }
 
 .navbar__logo-name {
@@ -744,7 +745,8 @@ h1, h2, h3 { margin: 0; font-family: var(--font-serif); }
   display: block;
   width: 72px;
   height: 3px;
-  margin: 18px 0 0;
+  margin-left: 47%;
+  margin-top: 2%;
   border-radius: 999px;
   background: linear-gradient(90deg, var(--gold), rgba(200, 169, 110, 0.25));
 }

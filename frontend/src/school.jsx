@@ -251,12 +251,15 @@ export function Navbar({ onNavigate, pathname = '/' }) {
       <div className="container">
         <div className="navbar__inner">
 
-          <div className="navbar__logo">
-            <div className="navbar__logo-badge">S</div>
-            <div>
-              <a href="/" style={{textDecoration: "none"}}><div className="navbar__logo-sub" style={{ color: "#C8A96E" }}>SCHOOL OF EXCELLENCE</div></a>
-            </div>
+          <a href="/" style={{textDecoration: "none"}}>
+            <div className="navbar__logo">
+              <div className="navbar__logo-badge">S</div>
+              <div>
+                <a href="/" style={{textDecoration: "none"}}><div className="navbar__logo-sub" style={{ color: "#C8A96E" }}>SCHOOL OF EXCELLENCE</div></a>
+              </div>
           </div>
+
+          </a>
 
           <button
             className="navbar__toggle"

@@ -18,7 +18,7 @@ const ROUTES = {
   '/learning': { component: PAGE_COMPONENTS.Learning, title: 'Learning' },
   '/learning/primary-school': { component: PAGE_COMPONENTS['Primary School'], title: 'Primary School' },
   '/learning/lower-secondary': { component: PAGE_COMPONENTS['Lower Secondary'], title: 'Lower Secondary' },
-  '/learning/upper-secondary': { component: PAGE_COMPONENTS['Upper Secondary'], title: 'Upper Secondary' },
+  '/learning/upper-secondary': { component: PAGE_COMPONENTS['Upper Secondary'], title: 'Upper Secondary' },    
   '/learning/sixth-form': { component: PAGE_COMPONENTS['Sixth Form'], title: 'Sixth Form' },
 
   '/admissions': { component: PAGE_COMPONENTS.Admissions, title: 'Admissions' },
@@ -65,7 +65,7 @@ function App() {
       : SITE_NAME;
   }, [pathname]);
 
-  const route = ROUTES[pathname] ?? null;
+  const route = ROUTES[pathname] ?? null; 
   const ActivePage = route?.component ?? null;
 
   const navigate = (path) => {
