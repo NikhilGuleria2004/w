@@ -199,9 +199,53 @@ function EnquireNow() {
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
   const [errors, setErrors] = useState({});
+  const yearGroupSelectRef = useRef(null);
+  const reasonSelectRef = useRef(null);
+  /** True after this field's list was opened via the label (so a second label click can dismiss). */
+  const yearGroupPickerOpenedByLabelRef = useRef(false);
+  const reasonPickerOpenedByLabelRef = useRef(false);
+
+  /** Open native <select> list from a label click; records ref so the same label can dismiss on repeat click. */
+  const openSelectFromLabelClick = (selectEl, openedByLabelRef) => {
+    if (!selectEl) return;
+    try {
+      if (typeof selectEl.showPicker === "function") {
+        selectEl.showPicker();
+        openedByLabelRef.current = true;
+        return;
+      }
+    } catch {
+      /* InvalidStateError / NotAllowedError in edge cases */
+    }
+    selectEl.focus();
+    selectEl.click();
+    openedByLabelRef.current = true;
+  };
+
+  /** Closing the list from script; blur alone is unreliable while the list is open. */
+  const dismissNativeSelectPicker = (selectEl) => {
+    if (!selectEl) return;
+    const evInit = { key: "Escape", code: "Escape", keyCode: 27, bubbles: true, cancelable: true };
+    selectEl.dispatchEvent(new KeyboardEvent("keydown", evInit));
+    selectEl.dispatchEvent(new KeyboardEvent("keyup", evInit));
+    selectEl.blur();
+  };
+
+  const handleSelectLabelClick = (e, selectEl, openedByLabelRef) => {
+    e.preventDefault();
+    if (!selectEl) return;
+    if (openedByLabelRef.current) {
+      openedByLabelRef.current = false;
+      dismissNativeSelectPicker(selectEl);
+      return;
+    }
+    openSelectFromLabelClick(selectEl, openedByLabelRef);
+  };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
+    if (name === "yearGroup") yearGroupPickerOpenedByLabelRef.current = false;
+    if (name === "reason") reasonPickerOpenedByLabelRef.current = false;
     setFormData((prev) => ({ ...prev, [name]: value }));
     if (errors[name]) setErrors((prev) => ({ ...prev, [name]: "" }));
   };
@@ -355,8 +399,9 @@ function EnquireNow() {
               <div className="enquire-form-grid">
                 {/* Parent / Guardian Name */}
                 <div style={fieldStyle}>
-                  <label style={labelStyle}>Parent / Guardian Name *</label>
+                  <label htmlFor="parentName" style={labelStyle}>Parent / Guardian Name *</label>
                   <input
+                    id="parentName"
                     style={{ ...inputStyle, borderColor: errors.parentName ? "rgba(220,80,80,0.7)" : "rgba(255,255,255,0.1)" }}
                     type="text"
                     name="parentName"
@@ -371,8 +416,9 @@ function EnquireNow() {
 
                 {/* Child's Name */}
                 <div style={fieldStyle}>
-                  <label style={labelStyle}>Child's Name</label>
+                  <label htmlFor="childName" style={labelStyle}>Child's Name</label>
                   <input
+                    id="childName"
                     style={inputStyle}
                     type="text"
                     name="childName"
@@ -386,8 +432,9 @@ function EnquireNow() {
 
                 {/* Email */}
                 <div style={fieldStyle}>
-                  <label style={labelStyle}>Email Address *</label>
+                  <label htmlFor="email" style={labelStyle}>Email Address *</label>
                   <input
+                    id="email"
                     style={{ ...inputStyle, borderColor: errors.email ? "rgba(220,80,80,0.7)" : "rgba(255,255,255,0.1)" }}
                     type="email"
                     name="email"
@@ -402,8 +449,9 @@ function EnquireNow() {
 
                 {/* Phone */}
                 <div style={fieldStyle}>
-                  <label style={labelStyle}>Phone Number *</label>
+                  <label htmlFor="phone" style={labelStyle}>Phone Number *</label>
                   <input
+                    id="phone"
                     style={{ ...inputStyle, borderColor: errors.phone ? "rgba(220,80,80,0.7)" : "rgba(255,255,255,0.1)" }}
                     type="tel"
                     name="phone"
@@ -419,8 +467,22 @@ function EnquireNow() {
 
               {/* Year Group */}
               <div style={{ ...fieldStyle, marginBottom: "20px" }}>
-                <label style={labelStyle}>Year Group of Interest *</label>
+                <label
+                  htmlFor="yearGroup"
+                  style={{ ...labelStyle, cursor: "pointer" }}
+                  onClick={(e) =>
+                    handleSelectLabelClick(
+                      e,
+                      yearGroupSelectRef.current,
+                      yearGroupPickerOpenedByLabelRef
+                    )
+                  }
+                >
+                  Year Group of Interest *
+                </label>
                 <select
+                  ref={yearGroupSelectRef}
+                  id="yearGroup"
                   style={{
                     ...inputStyle,
                     appearance: "none",
@@ -432,7 +494,11 @@ function EnquireNow() {
                   value={formData.yearGroup}
                   onChange={handleChange}
                   onFocus={(e) => (e.target.style.borderColor = "rgba(200,169,110,0.6)")}
-                  onBlur={(e) => (e.target.style.borderColor = errors.yearGroup ? "rgba(220,80,80,0.7)" : "rgba(255,255,255,0.1)")}
+                  onBlur={(e) => {
+                    e.target.style.borderColor = errors.yearGroup
+                      ? "rgba(220,80,80,0.7)"
+                      : "rgba(255,255,255,0.1)";
+                  }}
                 >
                   <option value="" disabled>Select a year group</option>
                   {YEAR_GROUPS.map((y) => (
@@ -444,8 +510,22 @@ function EnquireNow() {
 
               {/* Reason for Enquiry */}
               <div style={{ ...fieldStyle, marginBottom: "20px" }}>
-                <label style={labelStyle}>Reason for Enquiry</label>
+                <label
+                  htmlFor="reason"
+                  style={{ ...labelStyle, cursor: "pointer" }}
+                  onClick={(e) =>
+                    handleSelectLabelClick(
+                      e,
+                      reasonSelectRef.current,
+                      reasonPickerOpenedByLabelRef
+                    )
+                  }
+                >
+                  Reason for Enquiry
+                </label>
                 <select
+                  ref={reasonSelectRef}
+                  id="reason"
                   style={{
                     ...inputStyle,
                     appearance: "none",
@@ -460,9 +540,9 @@ function EnquireNow() {
                   onFocus={(e) =>
                     (e.target.style.borderColor = "rgba(200,169,110,0.6)")
                   }
-                  onBlur={(e) =>
-                    (e.target.style.borderColor = "rgba(255,255,255,0.1)")
-                  }
+                  onBlur={(e) => {
+                    e.target.style.borderColor = "rgba(255,255,255,0.1)";
+                  }}
                 >
                   <option value="" disabled>
                     Select a reason
@@ -481,8 +561,9 @@ function EnquireNow() {
 
               {/* Message */}
               <div style={{ ...fieldStyle, marginBottom: "32px" }}>
-                <label style={labelStyle}>Your Message</label>
+                <label htmlFor="message" style={labelStyle}>Your Message</label>
                 <textarea
+                  id="message"
                   style={{
                     ...inputStyle,
                     resize: "vertical",
