@@ -36,7 +36,9 @@
   overflow: hidden;
   background: linear-gradient(160deg, var(--navy-mid) 0%, var(--navy-soft) 50%, #111827 100%);
 }
-
+.heritageHidden{
+  display: none;
+}
 .discover-hero__grid {
   position: absolute;
   inset: 0;
@@ -415,6 +417,8 @@
   border: 1px solid rgba(255,255,255,0.05);
   border-radius: 4px;
   transition: border-color 0.3s, background 0.3s;
+  width: auto;
+  height: auto;
 }
 .heritage__node--active .heritage__card,
 .heritage__node:hover .heritage__card {
@@ -689,7 +693,7 @@
   background: rgba(200,169,110,0.12);
   border: 1px solid rgba(200,169,110,0.2);
   border-radius: 4px;
-  overflow: hidden;
+  overflow: auto; 
   margin-bottom: 48px;
 }
 
@@ -828,8 +832,8 @@
   .overview__card-grid { grid-template-columns: 1fr; }
   .family__grid   { grid-template-columns: 1fr; }
   .journey__cta-row { flex-direction: column; align-items: stretch; }
-  .heritage__node { gap: 24px; }
-  .heritage__card { padding: 24px 20px; }
+  .heritage__node {flex-direction: column; gap: 16px; padding-left: 24px; }
+  .heritage__card { padding: 24px 20px;  width: 100%; box-sizing: border-box;}
   .hos__photo-col { flex-direction: column; align-items: center; }
   .hos__photo-frame { max-width: 100%; }
   .family__note { flex-direction: column; padding: 24px 20px; }
@@ -837,4 +841,44 @@
   .enquire-form-box { padding: 22px 18px; }
   .discover-section-title { font-size: clamp(1.8rem, 6vw, 2.8rem); }
   .discover-section-intro { font-size: clamp(1rem, 3vw, 1.2rem); }
+  .heritage__dot-wrap{ margin-top: 0; margin-left: -32px;}
+  .heritage__spine{ left: 0;}
 }
+
+
+@media (max-width: 440px) {
+
+  
+
+  .heritage__card {
+    display: none;
+  }
+
+  .heritageHidden {
+    display: block;
+    padding: 28px 22px;
+    margin-top: 20px;
+
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(200,169,110,0.18);
+    border-radius: 6px;
+    width: 280%;
+
+    margin-top: -40px;
+
+    text-align: center;
+  }
+
+  .heritageHidden p {
+    margin: 0;
+    white-space: pre-line;
+
+    font-family: var(--font-body);
+    font-size: 17px;
+    font-style: italic;
+    line-height: 2;
+    color: rgba(255,255,255,0.68);
+  }
+
+}
+

@@ -294,6 +294,7 @@ function TermDates() {
         </RevealSection>
 
         <div
+        className="heritage__grid"
           style={{
             display: "grid",
             gridTemplateColumns: "repeat(3, 1fr)",
@@ -311,7 +312,26 @@ function TermDates() {
               </div>
             </RevealSection>
           ))}
+
+          <RevealSection>
+            <div className="heritageHidden">
+              <p>
+                August – December
+Autumn Term
+Term begins with orientation and academic induction.
+
+January – March
+Spring Term
+Focused academic learning with co-curricular showcases.
+
+April – June
+Summer Term
+Final assessments, celebrations, and enrichment programmes.
+              </p>
+            </div>
+          </RevealSection>
         </div>
+
 
       </div>
     </section>
