@@ -1965,6 +1965,7 @@ h1, h2, h3 { margin: 0; font-family: var(--font-serif); }
 
   .stats-bar__grid {
     grid-template-columns: repeat(2, 1fr);
+    
   }
 
   .navbar__link-btn,
@@ -2059,10 +2060,40 @@ h1, h2, h3 { margin: 0; font-family: var(--font-serif); }
 
 @media  (max-width: 425px){
   .hero__badge{
-    margin-bottom: 10%;
+    margin-bottom: 40%;
   }
   .hero__actions{
-    margin-top: 10%;
+    margin-top: 40%;
+  }
+}
+
+@media(max-width: 375px){
+  .hero__badge{
+    margin-bottom: 40%;
+  }
+  .hero__actions{
+    margin-top: 40%;
+  }
+}
+
+@media(max-height:700px){
+  .hero__badge{
+    margin-top: 100%;
+  }
+  .hero__actions{
+    margin-bottom:100%;
+  }
+  .hero__subtitle{
+    display: none;
+  }
+}
+
+@media(min-width: 768px) and  (max-width: 1024px){
+  .hero__badge{
+    margin-bottom: 20%;
+  }
+  .hero__actions{
+    margin-top: 20%;
   }
 }
 

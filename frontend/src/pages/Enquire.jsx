@@ -187,7 +187,7 @@ function EnquireHero({ activeSection }) {
 // Form styled entirely with existing CSS tokens and inline styles
 // No new CSS classes — inputs use inline styles consistent with the design system
 function EnquireNow() {
-  const [formData, setFormData] = useState({
+  const initialData = {
     parentName: "",
     email: "",
     phone: "",
@@ -195,7 +195,8 @@ function EnquireNow() {
     yearGroup: "",
     reason: "",
     message: "",
-  });
+  }
+  const [formData, setFormData] = useState(initialData);
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
   const [errors, setErrors] = useState({});
@@ -275,6 +276,17 @@ function EnquireNow() {
       setSubmitted(true);
     }, 1400);
   };
+
+  const handleClear = (e) =>{
+    e.preventDefault();
+    setFormData(initialData);
+    setErrors({
+      parentName: "",
+      email: "",
+      phone: "",
+      yearGroup: "",
+    });
+  }
 
   /* shared input style — uses CSS vars from Pages.css token set */
   const inputStyle = {
@@ -398,7 +410,7 @@ function EnquireNow() {
               <div className="enquire-form-grid">
                 {/* Parent / Guardian Name */}
                 <div style={fieldStyle}>
-                  <label htmlfor="parentName" style={labelStyle}>Parent / Guardian Name *</label>
+                  <label htmlFor="parentName" style={labelStyle}>Parent / Guardian Name *</label>
                   <input
                     id="parentName"
                     style={{ ...inputStyle, borderColor: errors.parentName ? "rgba(220,80,80,0.7)" : "rgba(255,255,255,0.1)" }}
@@ -415,7 +427,7 @@ function EnquireNow() {
 
                 {/* Child's Name */}
                 <div style={fieldStyle}>
-                  <label htmlfor="childname" style={labelStyle}>Child's Name</label>
+                  <label htmlFor="childname" style={labelStyle}>Child's Name</label>
                   <input
                     id="childname"    
                     style={inputStyle}
@@ -431,7 +443,7 @@ function EnquireNow() {
 
                 {/* Email */}
                 <div style={fieldStyle}>
-                  <label htmlfor="email" style={labelStyle}>Email Address *</label>
+                  <label htmlFor="email" style={labelStyle}>Email Address *</label>
                   <input
                     id="email"
                     style={{ ...inputStyle, borderColor: errors.email ? "rgba(220,80,80,0.7)" : "rgba(255,255,255,0.1)" }}
@@ -448,7 +460,7 @@ function EnquireNow() {
 
                 {/* Phone */}
                 <div style={fieldStyle}>
-                  <label htmlfor="phone" style={labelStyle}>Phone Number *</label>
+                  <label htmlFor="phone" style={labelStyle}>Phone Number *</label>
                   <input
                     id="phone"
                     style={{ ...inputStyle, borderColor: errors.phone ? "rgba(220,80,80,0.7)" : "rgba(255,255,255,0.1)" }}
@@ -467,7 +479,7 @@ function EnquireNow() {
               {/* Year Group */}
               <div style={{ ...fieldStyle, marginBottom: "20px" }}>
                 <label
-                  htmlfor="yearGroup"
+                  htmlFor="yearGroup"
                   style={{ ...labelStyle, cursor: "pointer" }}
                   onClick={(e) =>
                     handleSelectLabelClick(
@@ -510,7 +522,7 @@ function EnquireNow() {
               {/* Reason for Enquiry */}
               <div style={{ ...fieldStyle, marginBottom: "20px" }}>
                 <label
-                  htmlfor="reason"
+                  htmlFor="reason"
                   style={{ ...labelStyle, cursor: "pointer" }}
                   onClick={(e) =>
                     handleSelectLabelClick(
@@ -560,7 +572,7 @@ function EnquireNow() {
 
               {/* Message */}
               <div style={{ ...fieldStyle, marginBottom: "32px" }}>
-                <label htmlfor="message" style={labelStyle}>Your Message</label>
+                <label htmlFor="message" style={labelStyle}>Your Message</label>
                 <textarea
                   id="message"
                   style={{
@@ -590,6 +602,7 @@ function EnquireNow() {
               >
                 {loading ? "Submitting…" : "Submit Enquiry"}
               </button>
+              <button  className="btn-discover-primary" style={{marginTop: "2%"}} onClick={handleClear}>Clear</button>
             </div>
           </RevealSection>
 

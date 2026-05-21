@@ -126,12 +126,14 @@
 
 /* ── Sub-nav ──────────────────────────────────────────────── */
 .discover-subnav {
+  display: flex;
   position: sticky;
   top: 72px;
   z-index: 90;
   background: rgba(10,18,35,0.97);
   backdrop-filter: blur(12px);
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.35);
+  align-items: center;
 }
 
 .discover-subnav__inner {
@@ -771,4 +773,6 @@
   .hos__photo-col { flex-direction: column; align-items: center; }
   .hos__photo-frame { max-width: 100%; }
   .family__note { flex-direction: column; padding: 24px 20px; }
+  .overview__pull-quote-bar{display: none; }
 }
+

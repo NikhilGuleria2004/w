@@ -1,7 +1,30 @@
 import { useState, useEffect, useRef } from "react";
 import "./Pages.css";
-
+import schoolimg from './schoolimg.webp';
 /* ── Data ─────────────────────────────────────────────────── */
+
+const HOLISTIC_PILLARS = [
+  {
+    icon: "◎",
+    title: "Creative Expression",
+    desc: "Students explore music, drama, visual arts, and performance to develop imagination and confidence.",
+  },
+  {
+    icon: "◈",
+    title: "Leadership & Service",
+    desc: "Meaningful service opportunities encourage empathy, responsibility, and global citizenship.",
+  },
+  {
+    icon: "◉",
+    title: "Wellbeing & Character",
+    desc: "Emotional wellbeing and strong values are central to every student's journey.",
+  },
+  {
+    icon: "◇",
+    title: "Innovation & Exploration",
+    desc: "Students are encouraged to think critically, solve problems, and embrace new ideas.",
+  },
+];
 const HOUSES = [
   {
     name: "Ash House",
@@ -251,6 +274,28 @@ function Overview() {
                 within a close-knit international community.
               </p>
             </div>
+            <div className='Boardingimg'>
+              <img src="./schoolimg.webp" alt="" />
+            </div>
+          </RevealSection>
+          <RevealSection delay={120}> 
+            <RevealSection delay={220}>
+            <div className="overview__values">
+              {HOLISTIC_PILLARS.map((v, i) => (
+                <div
+                  className="overview__value-item"
+                  key={v.title}
+                  style={{ animationDelay: `${i * 100}ms` }}
+                >
+                  <span className="overview__value-icon">{v.icon}</span>
+                  <div>
+                    <h4 className="overview__value-title">{v.title}</h4>
+                    <p className="overview__value-desc">{v.desc}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </RevealSection>
           </RevealSection>
         </div>
 
