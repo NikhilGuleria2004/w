@@ -29,22 +29,22 @@ const ACADEMIC_SPACES = [
   {
     name: "Science Laboratories",
     desc: "Fully equipped physics, chemistry, and biology labs where students explore and experiment at the highest level.",
-    icon: "🔬",
+    icon: "",
   },
   {
     name: "Library & Research Centre",
     desc: "A vast collection of physical and digital resources supporting independent learning and academic depth.",
-    icon: "📚",
+    icon: "",
   },
   {
     name: "Innovation & Maker Space",
     desc: "Robotics, 3D printing, and design thinking studios that bring creativity and engineering together.",
-    icon: "⚙️",
+    icon: "",
   },
   {
     name: "Digital Learning Hub",
     desc: "High-speed connectivity and device-rich environments ensure every student is ready for a digital world.",
-    icon: "💻",
+    icon: "",
   },
 ];
 
@@ -139,7 +139,7 @@ function RevealSection({ children, delay = 0, className = "" }) {
 //       .discover-subnav__btn, .discover-subnav__btn--active
 const SUB_LINKS = [
   "Overview",
-  "Academic Spaces",
+  // "Academic Spaces",
   "Sports Facilities",
   "Arts & Performance",
 ];
@@ -327,6 +327,12 @@ function AcademicSpaces() {
           ))}
         </div>
 
+        {/* <RevealSection>
+          <div className="heritageHidden">
+            <p></p>
+          </div>
+        </RevealSection> */}
+
       </div>
     </section>
   );
@@ -368,6 +374,24 @@ function SportsFacilities() {
           ))}
         </div>
 
+        <RevealSection>
+            <div className="heritageHiddenB"  >
+              <p>
+                August – December
+Autumn Term
+Term begins with orientation and academic induction.
+
+January – March
+Spring Term
+Focused academic learning with co-curricular showcases.
+
+April – June
+Summer Term
+Final assessments, celebrations, and enrichment programmes.
+              </p>
+            </div>
+          </RevealSection>
+
       </div>
     </section>
   );
@@ -391,7 +415,7 @@ function ArtsPerformance() {
             </h2>
             <p className="discover-section-intro">Arts & Performance</p>
           </div>
-        </RevealSection>
+        </RevealSection>  
 
         <div
           style={{
@@ -416,6 +440,25 @@ function ArtsPerformance() {
             </RevealSection>
           ))}
         </div>
+        <RevealSection>
+            <div className="heritageHiddenB"  >
+              <p>
+                August – December
+Autumn Term
+Term begins with orientation and academic induction.
+
+January – March
+Spring Term
+Focused academic learning with co-curricular showcases.
+
+April – June
+Summer Term
+Final assessments, celebrations, and enrichment programmes.
+              </p>
+            </div>
+          </RevealSection>
+
+          <br />         
 
         <RevealSection delay={200}>
           <div className="overview__pull-quote">
@@ -440,7 +483,7 @@ function ArtsPerformance() {
 /* ── Section Map ──────────────────────────────────────────── */
 const SECTION_MAP = {
   Overview: <Overview />,
-  "Academic Spaces": <AcademicSpaces />,
+  // "Academic Spaces": <AcademicSpaces />,
   "Sports Facilities": <SportsFacilities />,
   "Arts & Performance": <ArtsPerformance />,
 };
