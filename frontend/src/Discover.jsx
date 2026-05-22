@@ -283,7 +283,26 @@ function Heritage() {
               </div>
             </RevealSection>
           ))}
+
         </div>
+
+        <RevealSection>
+            <div className="discheritageHidden">
+              <p>
+                August – December
+Autumn Term
+Term begins with orientation and academic induction.
+
+January – March
+Spring Term
+Focused academic learning with co-curricular showcases.
+
+April – June
+Summer Term
+Final assessments, celebrations, and enrichment programmes.
+              </p>
+            </div>
+          </RevealSection>
 
       </div>
     </div>
@@ -315,8 +334,8 @@ function HeadOfSchool() {
           <RevealSection delay={200}>
             <div className="hos__text-col">
               <p className="discover-label">Leadership</p>
-              <h2 className="discover-section-title" style={{ textAlign: "left" }}>
-                A Word from<br />the Head
+              <h2 className="discover-section-title" style={{ textAlign: "center" }}>
+                A Word From The Head
               </h2>
 
               {[

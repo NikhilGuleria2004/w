@@ -190,6 +190,7 @@
   color: var(--white);
   margin: 0 0 18px;
   position: relative;
+  
 }
 .discover-section-title::after {
   content: "";

@@ -51,7 +51,7 @@ const CO_CURRICULARS = [
 const SPORTS = [
   {
     sport: "Football",
-    detail: "Professional coaching and competitive inter-school fixtures.",
+    detail: "Professional coaching and competitive inter-school fixtures and more.",
   },
   {
     sport: "Swimming",
@@ -63,7 +63,7 @@ const SPORTS = [
   },
   {
     sport: "Athletics",
-    detail: "Track and field opportunities that promote fitness and resilience.",
+    detail: "Track and field opportunities that promote fitness and resilience and more.",
   },
 ];
 
@@ -374,12 +374,12 @@ function SportsAtSchool() {
           style={{
             display: "grid",
             gridTemplateColumns: "repeat(2, 1fr)",
-            gap: "16px",
+            gap: "10px",
           }}
         >
           {SPORTS.map((s, i) => (
             <RevealSection key={s.sport} delay={i * 100}>
-              <div className="heritage__card">
+              <div className="heritage__cards">
                 <h3 className="heritage__card-title">{s.sport}</h3>
                 <p className="heritage__card-desc">{s.detail}</p>
               </div>

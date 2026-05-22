@@ -79,7 +79,7 @@ const ARTS_SPACES = [
   {
     term: "The School Theatre",
     dates: "600-seat capacity",
-    note: "A professional performance venue hosting drama productions, concerts, and school events.",
+    note: "A professional performance venue hosting drama productions, concerts.",
   },
   {
     term: "Music Studios",

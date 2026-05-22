@@ -56,7 +56,7 @@ const PASTORAL_POINTS = [
   },
   {
     title: "Student Wellbeing",
-    desc: "Emotional wellbeing and personal development are central to boarding life.",
+    desc: "Emotional wellbeing and personal development are central to boarding life  jjkhbv.",
     icon: "◈",
   },
   {
@@ -84,12 +84,12 @@ const BOARDING_LIFE = [
   },
   {
     title: "Study Support",
-    desc: "Structured prep sessions and academic mentoring help students thrive.",
+    desc: "Structured prep sessions and academic mentoring help students thrive and more fun for students.",
     icon: "📘",
   },
   {
     title: "Lifelong Friendships",
-    desc: "Boarding builds independence, confidence, and friendships that last a lifetime.",
+    desc: "Boarding builds independence, confidence, and friendships that last a lifetime and longer.", 
     icon: "🏡",
   },
 ];
@@ -141,7 +141,7 @@ function RevealSection({ children, delay = 0, className = "" }) {
 const SUB_LINKS = [
   "Overview",
   "House System",
-  "Pastoral Care",
+  // "Pastoral Care",
   "Boarding Life",
 ];
 
@@ -341,6 +341,26 @@ function HouseSystem() {
           ))}
         </div>
 
+        <RevealSection>
+          <div className="heritageHiddenB">
+            <p>Crimson
+Ash House
+Known for leadership, courage, and a strong sense of community.
+
+Emerald
+Cedar House
+Celebrating creativity, collaboration, and innovation.
+
+Royal Blue
+Oak House
+Focused on resilience, academic ambition, and teamwork.
+
+Gold
+Willow House
+Recognised for compassion, balance, and holistic excellence.</p>
+          </div>
+        </RevealSection>
+
       </div>
     </section>
   );
@@ -368,14 +388,14 @@ function PastoralCare() {
             display: "grid",
             gridTemplateColumns: "repeat(2, 1fr)",
             gap: "16px",
-            maxWidth: "960px",
-            margin: "0 auto",
+            height: "100%",
+
           }}
         >
           {PASTORAL_POINTS.map((p, i) => (
             <RevealSection key={p.title} delay={i * 100}>
               <div className="overview__value-item">
-                <span className="overview__value-icon">{p.icon}</span>
+                {/* <span className="overview__value-icon">{p.icon}</span> */}
                 <div>
                   <h4 className="overview__value-title">{p.title}</h4>
                   <p className="overview__value-desc">{p.desc}</p>
@@ -384,6 +404,7 @@ function PastoralCare() {
             </RevealSection>
           ))}
         </div>
+
 
       </div>
     </section>
@@ -436,7 +457,7 @@ function BoardingLife() {
 const SECTION_MAP = {
   Overview: <Overview />,
   "House System": <HouseSystem />,
-  "Pastoral Care": <PastoralCare />,
+  // "Pastoral Care": <PastoralCare />,
   "Boarding Life": <BoardingLife />,
 };
 

@@ -2115,4 +2115,8 @@ h1, h2, h3 { margin: 0; font-family: var(--font-serif); }
 
 
 
-
+@media(max-width: 450px){
+  .news__controls{
+    display: block;
+  }
+}
