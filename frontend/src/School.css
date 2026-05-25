@@ -541,6 +541,7 @@ h1, h2, h3 { margin: 0; font-family: var(--font-serif); }
   height: 6px;
   border-radius: 50%;
   background: var(--gold);
+  display:none;
 }
 
 .hero__badge-text {
