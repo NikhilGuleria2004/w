@@ -475,7 +475,7 @@ Final assessments, celebrations, and enrichment programmes.
           </div>
         </RevealSection>
 
-      </div>
+      </div>    
     </section>
   );
 }

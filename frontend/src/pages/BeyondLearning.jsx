@@ -406,7 +406,7 @@ export default function BeyondLearning({ initialSection = "Overview" }) {
   const [activeSection, setActiveSection] = useState(initialSection);
 
   useEffect(() => {
-    setActiveSection(initialSection);
+    setActiveSection(initialSection); 
   }, [initialSection]);
 
   useEffect(() => {

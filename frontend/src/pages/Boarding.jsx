@@ -123,7 +123,7 @@ function RevealSection({ children, delay = 0, className = "" }) {
   return (
     <div
       ref={ref}
-      className={className}
+      className={className}  
       style={{
         opacity: visible ? 1 : 0,
         transform: visible ? "translateY(0)" : "translateY(36px)",
