@@ -263,19 +263,36 @@ function EnquireNow() {
     return newErrors;
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    const newErrors = validate();
-    if (Object.keys(newErrors).length > 0) {
-      setErrors(newErrors);
-      return;
-    }
-    setLoading(true);
-    setTimeout(() => {
-      setLoading(false);
-      setSubmitted(true);
-    }, 1400);
-  };
+const handleSubmit = async (e) => {
+  e.preventDefault();
+  const newErrors = validate();
+  if (Object.keys(newErrors).length > 0) {
+    setErrors(newErrors);
+    return;
+  }
+  setLoading(true);
+  try {
+    const res = await fetch("http://localhost:3001/api/enquiry", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        parentName: formData.parentName,
+        childName:  formData.childName,
+        email:      formData.email,
+        phone:      formData.phone,
+        grade:      formData.yearGroup,
+        message:    formData.message,
+      }),
+    });
+    const json = await res.json();
+    if (!json.success) throw new Error(json.errors?.join(", ") || json.message);
+    setSubmitted(true);
+  } catch (err) {
+    setErrors({ form: err.message || "Something went wrong. Please try again." });
+  } finally {
+    setLoading(false);
+  }
+};
 
   const handleClear = (e) =>{
     e.preventDefault();
