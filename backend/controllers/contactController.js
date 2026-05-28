@@ -1,13 +1,11 @@
 import { ContactModel } from "../models/Contact.js";
 import { sendContactEmail } from "../services/emailService.js";
 
-
 export async function submitContact(req, res, next) {
   try {
     
     const data = ContactModel.fromBody(req.body);
 
-  
     const errors = ContactModel.validate(data);
     if (errors.length > 0) {
       return res.status(400).json({ success: false, errors });

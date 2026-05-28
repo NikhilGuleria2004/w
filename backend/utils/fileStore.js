@@ -1,10 +1,3 @@
-/**
- * utils/fileStore.js
- * Simple JSON file store for persisting enquiries locally.
- * All file I/O is async and wrapped in try/catch so a write failure
- * never crashes the server or blocks the response.
- */
-
 import { readFile, writeFile, mkdir } from "fs/promises";
 import { join, dirname } from "path";
 import { fileURLToPath } from "url";
