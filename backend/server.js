@@ -1,21 +1,3 @@
-/**
- * School of Excellence Chandigarh — Backend Server
- * Place this file at: backend/server.js
- *
- * Install dependencies:
- *   npm install express cors dotenv resend express-rate-limit
- *
- * Create a .env file in /backend with:
- *   PORT=5000
- *   CLIENT_URL=http://localhost:5173
- *   RESEND_API_KEY=re_xxxxxxxxxxxxxxxx
- *   FROM_EMAIL=onboarding@resend.dev
- *   ADMISSIONS_EMAIL=admissions@schoolchandigarh.in
- *
- * Get a free Resend API key at: https://resend.com
- * Free tier: 3,000 emails/month, no credit card required.
- */
-
 import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
@@ -29,7 +11,7 @@ const PORT = process.env.PORT || 5000;
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
-/* ── Middleware ─────────────────────────────────────────────── */
+
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -42,14 +24,14 @@ app.use(
   })
 );
 
-// Rate limit: max 10 submissions per IP per 15 minutes
+
 const formLimiter = rateLimit({
   windowMs: 15 * 60 * 1000,
   max: 10,
   message: { success: false, message: "Too many requests. Please try again later." },
 });
 
-/* ── Helper: Validate enquiry fields ───────────────────────── */
+
 
 function validateEnquiry(body) {
   const { name, email, phone, grade } = body;
@@ -67,18 +49,14 @@ function validateEnquiry(body) {
   return errors;
 }
 
-/* ── Routes ─────────────────────────────────────────────────── */
 
-// Health check
+
+
 app.get("/api/health", (_req, res) => {
   res.json({ status: "ok", timestamp: new Date().toISOString() });
 });
 
-/**
- * POST /api/enquiry
- * Handles the admissions enquiry modal form.
- * Body: { name, email, phone, grade, message? }
- */
+
 app.post("/api/enquiry", formLimiter, async (req, res) => {
   const { name, email, phone, grade, message } = req.body;
 
@@ -92,7 +70,7 @@ app.post("/api/enquiry", formLimiter, async (req, res) => {
   const TO_ADMISSIONS = process.env.ADMISSIONS_EMAIL || "admissions@schoolchandigarh.in";
 
   if (!process.env.RESEND_API_KEY) {
-    // No API key — just log and return success (useful during local dev)
+    
     console.log("[Enquiry received — RESEND_API_KEY not set, skipping email]");
     console.log({ name, email, phone, grade, message });
     return res.status(200).json({
@@ -103,7 +81,7 @@ app.post("/api/enquiry", formLimiter, async (req, res) => {
 
   try {
     await Promise.all([
-      // Notification to admissions team
+      
       resend.emails.send({
         from: `School of Excellence Website <${FROM}>`,
         to: TO_ADMISSIONS,
@@ -121,7 +99,7 @@ app.post("/api/enquiry", formLimiter, async (req, res) => {
         `,
       }),
 
-      // Confirmation to parent
+      
       resend.emails.send({
         from: `School of Excellence Chandigarh <${FROM}>`,
         to: email,
@@ -158,11 +136,6 @@ app.post("/api/enquiry", formLimiter, async (req, res) => {
   }
 });
 
-/**
- * POST /api/contact
- * General contact form.
- * Body: { name, email, subject, message }
- */
 app.post("/api/contact", formLimiter, async (req, res) => {
   const { name, email, subject, message } = req.body;
 
@@ -194,12 +167,12 @@ app.post("/api/contact", formLimiter, async (req, res) => {
   }
 });
 
-/* ── 404 fallback ───────────────────────────────────────────── */
+
 app.use((_req, res) => {
   res.status(404).json({ success: false, message: "Endpoint not found." });
 });
 
-/* ── Start ──────────────────────────────────────────────────── */
+
 app.listen(PORT, () => {
   console.log(`✅  School of Excellence backend running on http://localhost:${PORT}`);
   console.log(`   Resend configured: ${process.env.RESEND_API_KEY ? "yes" : "no — emails will be skipped"}`);
