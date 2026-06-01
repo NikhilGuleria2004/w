@@ -1,16 +1,23 @@
+import mongoose from "mongoose";
 import fs from "fs/promises";
 import path from "path";
+import { Account } from "../models/Account.js";
 import { createSession, getSession } from "../services/sessionStore.js";
 
-const DATA_FILE = path.resolve("./data/accounts.json");
+const JSON_FALLBACK = path.resolve("./data/accounts.json");
 
-async function readAccounts() {
+async function findAccount(email) {
+  if (mongoose.connection.readyState === 1) {
+    return Account.findOne({ email: email.toLowerCase() }).lean();
+  }
+  // Fallback: read from JSON when DB is not connected
   try {
-    const raw = await fs.readFile(DATA_FILE, "utf8");
-    return JSON.parse(raw || "{}");
-  } catch (err) {
-    console.warn("[parentController] Failed to read accounts.json", err.message);
-    return {};
+    const raw = await fs.readFile(JSON_FALLBACK, "utf8");
+    const accounts = JSON.parse(raw || "{}");
+    const acct = accounts[email.toLowerCase()];
+    return acct ? { ...acct, email: email.toLowerCase() } : null;
+  } catch {
+    return null;
   }
 }
 
@@ -21,17 +28,14 @@ export async function login(req, res) {
       return res.status(400).json({ success: false, message: "Email and password required" });
     }
 
-    const accounts = await readAccounts();
-    const acct = accounts[email.toLowerCase()];
-
+    const acct = await findAccount(email);
     if (!acct || acct.password !== password) {
       return res.status(401).json({ success: false, message: "Invalid credentials" });
     }
 
     const token = createSession(email.toLowerCase());
 
-    const safe = { ...acct };
-    delete safe.password;
+    const { password: _pw, ...safe } = acct;
 
     return res.json({ success: true, token, account: safe });
   } catch (err) {
@@ -47,14 +51,12 @@ export async function getAccount(req, res) {
       return res.status(401).json({ success: false, message: "Invalid or expired token" });
     }
 
-    const accounts = await readAccounts();
-    const acct = accounts[session.email];
+    const acct = await findAccount(session.email);
     if (!acct) {
       return res.status(404).json({ success: false, message: "Account not found" });
     }
 
-    const safe = { ...acct };
-    delete safe.password;
+    const { password: _pw, ...safe } = acct;
     return res.json({ success: true, account: safe });
   } catch (err) {
     console.error("[parentController] getAccount error", err);
