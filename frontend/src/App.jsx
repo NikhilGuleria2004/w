@@ -43,6 +43,7 @@ const ROUTES = {
   '/privacy-policy': { component: PAGE_COMPONENTS['Privacy Policy'], title: 'Privacy Policy' },
   '/terms-and-conditions': { component: PAGE_COMPONENTS['Terms & Conditions'], title: 'Terms & Conditions' },
   '/sitemap': { component: PAGE_COMPONENTS.Sitemap, title: 'Sitemap' },
+  '/parent-portal': { component: PAGE_COMPONENTS.ParentPortal, title: 'Parent Portal' },
 
   '/enquire': { component: PAGE_COMPONENTS.Enquire, title: 'Enquire Now' },
 };

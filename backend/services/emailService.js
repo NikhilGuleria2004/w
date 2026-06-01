@@ -40,7 +40,7 @@ export async function sendEnquiryEmails(enquiry) {
       }),
 
       
-      resend.emails.send({
+      resend.emails.send({ 
         from: `School of Excellence Chandigarh <${FROM}>`,
         to: email,
         subject: "We've received your enquiry — School of Excellence Chandigarh",
@@ -56,7 +56,6 @@ export async function sendEnquiryEmails(enquiry) {
     return { ok: false, error };
   }
 }
-
 
 export async function sendContactEmail(contact) {
   if (!resend) {
@@ -78,7 +77,7 @@ export async function sendContactEmail(contact) {
     await resend.emails.send({
       from: `School Website Contact <${FROM}>`,
       to: TO_ADMISSIONS,
-      subject: s.subject
+      subject: s.subject   
         ? `Contact Form: ${s.subject}`
         : `Contact Form message from ${s.name}`,
       html: buildContactNotification(s),
@@ -90,7 +89,6 @@ export async function sendContactEmail(contact) {
     return { ok: false, error };
   }
 }
-
 
 
 function buildAdmissionsNotification(s, timestamp) {

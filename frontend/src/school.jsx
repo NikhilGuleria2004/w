@@ -302,6 +302,12 @@ export function Navbar({ onNavigate, pathname = '/' }) {
             ))}
               <button
                 className="navbar__cta"
+                onClick={() => onNavigate('/parent-portal')}
+              >
+                Parent Portal
+              </button>
+              <button
+                className="navbar__cta"
                 onClick={() => onNavigate('/enquire')}
               >
                 Enquire Now
@@ -349,6 +355,9 @@ export function Navbar({ onNavigate, pathname = '/' }) {
                   )}
                 </div>
               ))}
+              <button className="navbar__cta navbar__cta--mobile" onClick={() => { onNavigate('/parent-portal'); setMobileMenuOpen(false); }}>
+                Parent Portal
+              </button>
               <button className="navbar__cta navbar__cta--mobile" onClick={() => { onNavigate('/enquire'); setMobileMenuOpen(false); }}>
                 Enquire Now
               </button>
