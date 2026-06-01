@@ -1,0 +1,51 @@
+{
+  "parent@school.com": {
+    "password": "demo1234",
+    "name": "Rajiv Sharma",
+    "children": [
+      {
+        "id": 1,
+        "name": "Aanya Sharma",
+        "year": "Year 9 · Upper Secondary",
+        "avatar": "AS",
+        "attendance": 94,
+        "gpa": "A–",
+        "nextAssessment": "Mathematics — 12 Jun",
+        "fees": { "status": "Paid", "next": "Aug 2025", "amount": "₹9,80,000" },
+        "subjects": [
+          { "name": "Mathematics", "grade": "A", "score": 91 },
+          { "name": "Sciences", "grade": "A–", "score": 87 },
+          { "name": "English", "grade": "B+", "score": 83 },
+          { "name": "History", "grade": "A", "score": 90 },
+          { "name": "Computer Sci", "grade": "A+", "score": 97 }
+        ],
+        "notices": [
+          { "date": "30 May", "text": "Sports Day — 14 June. Kit required." },
+          { "date": "27 May", "text": "Mathematics assessment rescheduled to 12 Jun." },
+          { "date": "20 May", "text": "Term report published. Check the Documents tab." }
+        ]
+      },
+      {
+        "id": 2,
+        "name": "Rohan Sharma",
+        "year": "Year 5 · Primary",
+        "avatar": "RS",
+        "attendance": 98,
+        "gpa": "A",
+        "nextAssessment": "English — 18 Jun",
+        "fees": { "status": "Paid", "next": "Aug 2025", "amount": "₹6,50,000" },
+        "subjects": [
+          { "name": "English", "grade": "A", "score": 93 },
+          { "name": "Mathematics", "grade": "A–", "score": 88 },
+          { "name": "Science", "grade": "A+", "score": 96 },
+          { "name": "Art", "grade": "A", "score": 91 },
+          { "name": "PE", "grade": "A+", "score": 98 }
+        ],
+        "notices": [
+          { "date": "29 May", "text": "School trip to Science Museum — 20 June. Consent form due." },
+          { "date": "24 May", "text": "Art exhibition on 7 June. All families welcome." }
+        ]
+      }
+    ]
+  }
+}

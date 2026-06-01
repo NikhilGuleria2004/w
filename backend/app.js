@@ -7,6 +7,7 @@ import { notFound } from "./middleware/notFound.js";
 import healthRoutes from "./routes/health.routes.js";
 import enquiryRoutes from "./routes/enquiry.routes.js";
 import contactRoutes from "./routes/contact.routes.js";
+import parentRoutes from "./routes/parent.routes.js";
 
 const app = express();
 
@@ -17,7 +18,7 @@ app.use(
   cors({
     origin: config.CLIENT_URL,
     methods: ["GET", "POST"],
-    allowedHeaders: ["Content-Type"],
+    allowedHeaders: ["Content-Type", "Authorization"],
   })
 );
 
@@ -26,6 +27,7 @@ app.use(requestLogger);
 app.use("/api", healthRoutes);
 app.use("/api/enquiry", enquiryRoutes);
 app.use("/api/contact", contactRoutes);
+app.use("/api/parent", parentRoutes);
 
 app.use(notFound);
 app.use(errorHandler);

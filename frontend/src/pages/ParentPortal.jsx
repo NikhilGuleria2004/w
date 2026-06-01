@@ -1,5 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 
+const API_BASE = `${window.location.protocol}//${window.location.hostname}:3001`;
+
 /* ─────────────────────────────────────────────
    CENTERING HELPERS
 ───────────────────────────────────────────── */
@@ -15,60 +17,7 @@ const sectionStyle = {
   padding: "64px 0",
 };
 
-/* ─────────────────────────────────────────────
-   MOCK DATA
-───────────────────────────────────────────── */
-const MOCK_ACCOUNTS = {
-  "parent@school.com": {
-    password: "demo1234",
-    name: "Rajiv Sharma",
-    children: [
-      {
-        id: 1,
-        name: "Aanya Sharma",
-        year: "Year 9 · Upper Secondary",
-        avatar: "AS",
-        attendance: 94,
-        gpa: "A–",
-        nextAssessment: "Mathematics — 12 Jun",
-        fees: { status: "Paid", next: "Aug 2025", amount: "₹9,80,000" },
-        subjects: [
-          { name: "Mathematics",  grade: "A",  score: 91 },
-          { name: "Sciences",     grade: "A–", score: 87 },
-          { name: "English",      grade: "B+", score: 83 },
-          { name: "History",      grade: "A",  score: 90 },
-          { name: "Computer Sci", grade: "A+", score: 97 },
-        ],
-        notices: [
-          { date: "30 May", text: "Sports Day — 14 June. Kit required." },
-          { date: "27 May", text: "Mathematics assessment rescheduled to 12 Jun." },
-          { date: "20 May", text: "Term report published. Check the Documents tab." },
-        ],
-      },
-      {
-        id: 2,
-        name: "Rohan Sharma",
-        year: "Year 5 · Primary",
-        avatar: "RS",
-        attendance: 98,
-        gpa: "A",
-        nextAssessment: "English — 18 Jun",
-        fees: { status: "Paid", next: "Aug 2025", amount: "₹6,50,000" },
-        subjects: [
-          { name: "English",     grade: "A",  score: 93 },
-          { name: "Mathematics", grade: "A–", score: 88 },
-          { name: "Science",     grade: "A+", score: 96 },
-          { name: "Art",         grade: "A",  score: 91 },
-          { name: "PE",          grade: "A+", score: 98 },
-        ],
-        notices: [
-          { date: "29 May", text: "School trip to Science Museum — 20 June. Consent form due." },
-          { date: "24 May", text: "Art exhibition on 7 June. All families welcome." },
-        ],
-      },
-    ],
-  },
-};
+/* Mock data moved to backend. Frontend will call the parent API. */
 
 /* ─────────────────────────────────────────────
    HOOKS
@@ -151,19 +100,29 @@ function LoginPage({ onLogin }) {
     transition: `opacity 0.85s ease ${ms}ms, transform 0.85s ease ${ms}ms`,
   });
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     setError("");
     if (!email || !password) { setError("Please fill in all fields."); return; }
     setLoading(true);
-    setTimeout(() => {
-      const account = MOCK_ACCOUNTS[email.toLowerCase().trim()];
-      if (account && account.password === password) {
-        onLogin(account);
+    try {
+      const resp = await fetch(`${API_BASE}/api/parent/login`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: email.toLowerCase().trim(), password }),
+      });
+      const data = await resp.json();
+      if (!resp.ok) {
+        setError(data.message || 'Invalid email or password.');
       } else {
-        setError("Invalid email or password. Try: parent@school.com / demo1234");
+        localStorage.setItem('parent_token', data.token);
+        onLogin(data.account);
       }
+    } catch (err) {
+      console.error(err);
+      setError('Network error. Please try again.');
+    } finally {
       setLoading(false);
-    }, 900);
+    }
   };
 
   return (
@@ -874,7 +833,24 @@ function Dashboard({ account, onLogout }) {
 export default function ParentPortal() {
   const [account, setAccount] = useState(null);
 
+  useEffect(() => {
+    const token = localStorage.getItem('parent_token');
+    if (!token) return;
+    fetch(`${API_BASE}/api/parent/account`, { headers: { Authorization: `Bearer ${token}` } })
+      .then((r) => r.json())
+      .then((data) => {
+        if (data?.success) setAccount(data.account);
+        else localStorage.removeItem('parent_token');
+      })
+      .catch(() => localStorage.removeItem('parent_token'));
+  }, []);
+
+  const handleLogout = () => {
+    localStorage.removeItem('parent_token');
+    setAccount(null);
+  };
+
   return account
-    ? <Dashboard account={account} onLogout={() => setAccount(null)} />
-    : <LoginPage onLogin={setAccount} />;
+    ? <Dashboard account={account} onLogout={handleLogout} />
+    : <LoginPage onLogin={(a) => setAccount(a)} />;
 }
