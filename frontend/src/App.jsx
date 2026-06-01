@@ -78,20 +78,25 @@ function App() {
     }
   };
 
+  const hideNavbarRoutes = ['/parent-portal'];
+  const showNavbar = !hideNavbarRoutes.includes(pathname);
   return (
-    <>
+  <>
+    {showNavbar && (
       <Navbar onNavigate={navigate} pathname={pathname} />
-      <div key={pathname} className="page-fade-in">
-        {ActivePage ? (
-          <ActivePage onBack={() => navigate('/')} {...route.props} />
-        ) : (
-          <School onNavigate={navigate} />
-        )}
-      </div>
-      <Footer onNavigate={navigate} />
+    )}
 
-    </>
-  );
+    <div key={pathname} className="page-fade-in">
+      {ActivePage ? (
+        <ActivePage onBack={() => navigate('/')} {...route.props} />
+      ) : (
+        <School onNavigate={navigate} />
+      )}
+    </div>
+
+    <Footer onNavigate={navigate} />
+  </>
+);
 }
 
 export default App;

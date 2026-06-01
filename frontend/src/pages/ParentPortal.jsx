@@ -1,6 +1,21 @@
 import { useState, useEffect, useRef } from "react";
 
 /* ─────────────────────────────────────────────
+   CENTERING HELPERS
+───────────────────────────────────────────── */
+const containerStyle = {
+  width: "100%",
+  maxWidth: "1100px",
+  margin: "0 auto",
+  padding: "0 24px",
+  boxSizing: "border-box",
+};
+
+const sectionStyle = {
+  padding: "64px 0",
+};
+
+/* ─────────────────────────────────────────────
    MOCK DATA
 ───────────────────────────────────────────── */
 const MOCK_ACCOUNTS = {
@@ -90,6 +105,35 @@ function RevealSection({ children, delay = 0, className = "" }) {
 }
 
 /* ─────────────────────────────────────────────
+   SECTION HEADER
+───────────────────────────────────────────── */
+function SectionHeader({ title, sub, center = true }) {
+  return (
+    <div style={{ textAlign: center ? "center" : "left", marginBottom: "40px" }}>
+      {sub && (
+        <p style={{
+          fontFamily: "var(--font-body, sans-serif)",
+          fontSize: "11px",
+          fontWeight: 700,
+          letterSpacing: "0.15em",
+          textTransform: "uppercase",
+          color: "rgba(255,255,255,0.35)",
+          margin: "0 0 10px",
+        }}>{sub}</p>
+      )}
+      <h2 style={{
+        fontFamily: "var(--font-display, serif)",
+        fontSize: "clamp(22px, 3vw, 34px)",
+        fontWeight: 400,
+        color: "var(--white, #fff)",
+        margin: 0,
+        lineHeight: 1.2,
+      }}>{title}</h2>
+    </div>
+  );
+}
+
+/* ─────────────────────────────────────────────
    LOGIN PAGE
 ───────────────────────────────────────────── */
 function LoginPage({ onLogin }) {
@@ -124,7 +168,7 @@ function LoginPage({ onLogin }) {
 
   return (
     <div className="discover-root" style={{ minHeight: "100vh" }}>
-      {/* ── decorative hero layer ── */}
+      {/* decorative background */}
       <div className="discover-hero" style={{ position: "fixed", inset: 0, zIndex: 0 }}>
         <div className="discover-hero__grid" />
         <div className="discover-hero__orb discover-hero__orb--a" />
@@ -133,30 +177,44 @@ function LoginPage({ onLogin }) {
         <div className="discover-hero__ring discover-hero__ring--sm" />
       </div>
 
-      {/* ── login card ── */}
+      {/* centered login card */}
       <div style={{
-        position: "relative", zIndex: 1,
-        display: "flex", alignItems: "center", justifyContent: "center",
-        minHeight: "100vh", padding: "40px 20px",
+        position: "relative",
+        zIndex: 1,
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        minHeight: "100vh",
+        padding: "40px 20px",
       }}>
         <div style={{ width: "100%", maxWidth: "440px" }}>
 
           {/* eyebrow */}
-          <div className="discover-hero__eyebrow" style={fade(100)}>
-            <span className="discover-hero__slash">— </span>
+          <div
+            className="discover-hero__eyebrow"
+            style={{ ...fade(100), textAlign: "center", justifyContent: "center", display: "flex", gap: "4px" }}
+          >
+            <span className="discover-hero__slash">—&nbsp;</span>
             Parent Portal
-            <span className="discover-hero__slash"> —</span>
+            <span className="discover-hero__slash">&nbsp;—</span>
           </div>
 
           {/* heading */}
-          <h1 className="discover-hero__title" style={{ ...fade(220), marginBottom: "8px" }}>
+          <h1
+            className="discover-hero__title"
+            style={{ ...fade(220), marginBottom: "8px", textAlign: "center" }}
+          >
             Welcome<br /><em>Back</em>
           </h1>
-          <p className="discover-hero__sub" style={{ ...fade(340), marginBottom: "40px" }}>
+
+          <p
+            className="discover-hero__sub"
+            style={{ ...fade(340), marginBottom: "40px", textAlign: "center" }}
+          >
             School of Excellence Chandigarh
           </p>
 
-          {/* card */}
+          {/* form card */}
           <div
             className="heritage__card"
             style={{
@@ -167,7 +225,6 @@ function LoginPage({ onLogin }) {
               gap: "18px",
             }}
           >
-            {/* email */}
             <div style={{ display: "flex", flexDirection: "column", gap: "6px" }}>
               <label style={labelStyle}>Email Address</label>
               <input
@@ -180,7 +237,6 @@ function LoginPage({ onLogin }) {
               />
             </div>
 
-            {/* password */}
             <div style={{ display: "flex", flexDirection: "column", gap: "6px" }}>
               <label style={labelStyle}>Password</label>
               <input
@@ -193,7 +249,6 @@ function LoginPage({ onLogin }) {
               />
             </div>
 
-            {/* error */}
             {error && (
               <p style={{
                 fontFamily: "var(--font-body, sans-serif)",
@@ -207,7 +262,6 @@ function LoginPage({ onLogin }) {
               }}>{error}</p>
             )}
 
-            {/* submit */}
             <button
               onClick={handleSubmit}
               disabled={loading}
@@ -226,7 +280,6 @@ function LoginPage({ onLogin }) {
               {loading ? "Signing In…" : "Sign In"}
             </button>
 
-            {/* hint */}
             <p style={{
               fontFamily: "var(--font-body, sans-serif)",
               fontSize: "12px",
@@ -268,14 +321,22 @@ const inputStyle = {
 };
 
 /* ─────────────────────────────────────────────
-   DASHBOARD — TOP NAV
+   DASHBOARD NAV
 ───────────────────────────────────────────── */
 const DASH_TABS = ["Overview", "Academics", "Attendance", "Fees", "Notices"];
 
 function DashNav({ active, onSelect, account, onLogout }) {
   return (
     <div className="discover-subnav" style={{ position: "sticky", top: 0, zIndex: 100 }}>
-      <div className="discover-subnav__inner" style={{ justifyContent: "space-between", flexWrap: "wrap", gap: "8px" }}>
+      <div style={{
+        ...containerStyle,
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "space-between",
+        flexWrap: "wrap",
+        gap: "8px",
+        padding: "0 24px",
+      }}>
         <div style={{ display: "flex", gap: "4px", flexWrap: "wrap" }}>
           {DASH_TABS.map((t) => (
             <button
@@ -310,11 +371,17 @@ function DashNav({ active, onSelect, account, onLogout }) {
 }
 
 /* ─────────────────────────────────────────────
-   CHILD SELECTOR PILL ROW
+   CHILD SELECTOR
 ───────────────────────────────────────────── */
 function ChildSelector({ children, active, onSelect }) {
   return (
-    <div style={{ display: "flex", gap: "12px", marginBottom: "36px", flexWrap: "wrap" }}>
+    <div style={{
+      display: "flex",
+      gap: "12px",
+      flexWrap: "wrap",
+      justifyContent: "center",
+      marginBottom: "0",
+    }}>
       {children.map((c) => (
         <button
           key={c.id}
@@ -333,7 +400,6 @@ function ChildSelector({ children, active, onSelect }) {
             transition: "all 0.2s",
           }}
         >
-          {/* avatar */}
           <div style={{
             width: 32, height: 32, borderRadius: "50%",
             background: "linear-gradient(135deg, rgba(255,255,255,0.15), rgba(255,255,255,0.05))",
@@ -343,6 +409,7 @@ function ChildSelector({ children, active, onSelect }) {
             color: "var(--white, #fff)",
             letterSpacing: "0.05em",
             border: "1px solid rgba(255,255,255,0.15)",
+            flexShrink: 0,
           }}>
             {c.avatar}
           </div>
@@ -365,18 +432,20 @@ function ChildSelector({ children, active, onSelect }) {
 }
 
 /* ─────────────────────────────────────────────
-   STAT CARD  (reuses family__card)
+   STAT CARD
 ───────────────────────────────────────────── */
 function StatCard({ label, value, sub, delay = 0 }) {
   return (
     <RevealSection delay={delay}>
-      <div className="family__card">
+      <div className="family__card" style={{ textAlign: "center" }}>
         <p className="family__country">{label}</p>
         <p className="family__city" style={{ fontSize: "28px", fontWeight: 700 }}>{value}</p>
-        {sub && <p style={{
-          fontFamily: "var(--font-body, sans-serif)",
-          fontSize: "12px", color: "rgba(255,255,255,0.35)", margin: "4px 0 0",
-        }}>{sub}</p>}
+        {sub && (
+          <p style={{
+            fontFamily: "var(--font-body, sans-serif)",
+            fontSize: "12px", color: "rgba(255,255,255,0.35)", margin: "4px 0 0",
+          }}>{sub}</p>
+        )}
       </div>
     </RevealSection>
   );
@@ -387,37 +456,43 @@ function StatCard({ label, value, sub, delay = 0 }) {
 ───────────────────────────────────────────── */
 function TabOverview({ child }) {
   return (
-    <section className="discover-section">
-      <div className="discover-container">
+    <section style={sectionStyle}>
+      <div style={containerStyle}>
 
         <RevealSection>
-          <div className="discover-section-header">
-            <h2 className="discover-section-title">{child.name}</h2>
-            <p className="discover-section-intro">{child.year}</p>
-          </div>
+          <SectionHeader title={child.name} sub={child.year} />
         </RevealSection>
 
-        {/* stat row */}
-        <div className="family__grid" style={{ gridTemplateColumns: "repeat(auto-fit, minmax(160px, 1fr))", marginBottom: "40px" }}>
-          <StatCard label="Attendance" value={`${child.attendance}%`} sub="This term" delay={0} />
-          <StatCard label="Overall Grade" value={child.gpa} sub="Current average" delay={80} />
-          <StatCard label="Fee Status" value={child.fees.status} sub={`Next due: ${child.fees.next}`} delay={160} />
+        {/* stat grid */}
+        <div style={{
+          display: "grid",
+          gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))",
+          gap: "16px",
+          marginBottom: "48px",
+        }}>
+          <StatCard label="Attendance"      value={`${child.attendance}%`}            sub="This term"                           delay={0}   />
+          <StatCard label="Overall Grade"   value={child.gpa}                          sub="Current average"                     delay={80}  />
+          <StatCard label="Fee Status"      value={child.fees.status}                  sub={`Next due: ${child.fees.next}`}      delay={160} />
           <StatCard label="Next Assessment" value={child.nextAssessment.split("—")[0]} sub={child.nextAssessment.split("—")[1]?.trim()} delay={240} />
         </div>
 
-        {/* recent notices */}
+        {/* notices */}
         <RevealSection delay={100}>
-          <div className="discover-section-header" style={{ marginBottom: "20px" }}>
-            <h2 className="discover-section-title" style={{ fontSize: "22px" }}>Recent Notices</h2>
-          </div>
+          <SectionHeader title="Recent Notices" />
         </RevealSection>
 
-        <div style={{ display: "flex", flexDirection: "column", gap: "12px", maxWidth: "700px" }}>
+        <div style={{
+          display: "flex", flexDirection: "column", gap: "12px",
+          maxWidth: "700px", margin: "0 auto",
+        }}>
           {child.notices.map((n, i) => (
             <RevealSection key={i} delay={i * 80}>
               <div className="overview__pull-quote">
                 <div className="overview__pull-quote-bar" />
-                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: "12px", width: "100%" }}>
+                <div style={{
+                  display: "flex", justifyContent: "space-between",
+                  alignItems: "flex-start", gap: "12px", width: "100%",
+                }}>
                   <p style={{
                     fontFamily: "var(--font-body, sans-serif)",
                     fontSize: "15px", color: "rgba(255,255,255,0.75)",
@@ -445,26 +520,25 @@ function TabOverview({ child }) {
 ───────────────────────────────────────────── */
 function TabAcademics({ child }) {
   return (
-    <section className="discover-section">
-      <div className="discover-container">
+    <section style={sectionStyle}>
+      <div style={containerStyle}>
 
         <RevealSection>
-          <div className="discover-section-header">
-            <h2 className="discover-section-title">Academic Results</h2>
-            <p className="discover-section-intro">{child.name}</p>
-          </div>
+          <SectionHeader title="Academic Results" sub={child.name} />
         </RevealSection>
 
-        <div className="journey__steps">
+        <div style={{
+          display: "grid",
+          gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))",
+          gap: "16px",
+        }}>
           {child.subjects.map((s, i) => (
             <RevealSection key={s.name} delay={i * 100}>
-              <div className="journey__step" style={{ position: "relative", overflow: "hidden" }}>
-                {/* grade badge */}
-                <div className="journey__step-num" style={{ fontSize: "20px" }}>{s.grade}</div>
+              <div className="journey__step" style={{ textAlign: "center" }}>
+                <div className="journey__step-num" style={{ fontSize: "20px", margin: "0 auto 12px" }}>{s.grade}</div>
                 <h3 className="journey__step-title">{s.name}</h3>
-                {/* score bar */}
                 <div style={{
-                  marginTop: "12px",
+                  marginTop: "14px",
                   height: "4px",
                   borderRadius: "2px",
                   background: "rgba(255,255,255,0.08)",
@@ -495,7 +569,6 @@ function TabAcademics({ child }) {
 const MONTHS = ["Aug", "Sep", "Oct", "Nov", "Dec", "Jan", "Feb", "Mar", "Apr", "May"];
 
 function TabAttendance({ child }) {
-  // seed deterministic attendance bars per child
   const bars = MONTHS.map((m, i) => {
     const base = child.attendance;
     const val = Math.min(100, Math.max(72, base + Math.sin(i * 1.7 + child.id) * 6));
@@ -503,28 +576,29 @@ function TabAttendance({ child }) {
   });
 
   return (
-    <section className="discover-section">
-      <div className="discover-container">
+    <section style={sectionStyle}>
+      <div style={containerStyle}>
 
         <RevealSection>
-          <div className="discover-section-header">
-            <h2 className="discover-section-title">Attendance Record</h2>
-            <p className="discover-section-intro">{child.name}</p>
-          </div>
+          <SectionHeader title="Attendance Record" sub={child.name} />
         </RevealSection>
 
-        <RevealSection delay={80}>
-          <div className="family__grid" style={{ gridTemplateColumns: "repeat(auto-fit, minmax(140px,1fr))", marginBottom: "40px" }}>
-            <StatCard label="This Term" value={`${child.attendance}%`} />
-            <StatCard label="Days Present" value={Math.round(child.attendance * 1.85)} sub="of ~185 school days" />
-            <StatCard label="Absences" value={Math.round((100 - child.attendance) * 1.85)} sub="days this year" />
-          </div>
-        </RevealSection>
+        <div style={{
+          display: "grid",
+          gridTemplateColumns: "repeat(auto-fit, minmax(160px, 1fr))",
+          gap: "16px",
+          marginBottom: "40px",
+        }}>
+          <StatCard label="This Term"    value={`${child.attendance}%`}                     delay={0}   />
+          <StatCard label="Days Present" value={Math.round(child.attendance * 1.85)}         sub="of ~185 school days" delay={80}  />
+          <StatCard label="Absences"     value={Math.round((100 - child.attendance) * 1.85)} sub="days this year"     delay={160} />
+        </div>
 
-        {/* bar chart */}
         <RevealSection delay={160}>
           <div className="heritage__card" style={{ padding: "28px 24px" }}>
-            <h3 className="heritage__card-title" style={{ marginBottom: "24px" }}>Monthly Attendance</h3>
+            <h3 className="heritage__card-title" style={{ marginBottom: "24px", textAlign: "center" }}>
+              Monthly Attendance
+            </h3>
             <div style={{
               display: "flex",
               alignItems: "flex-end",
@@ -532,7 +606,10 @@ function TabAttendance({ child }) {
               height: "140px",
             }}>
               {bars.map((b, i) => (
-                <div key={b.month} style={{ flex: 1, display: "flex", flexDirection: "column", alignItems: "center", gap: "6px" }}>
+                <div key={b.month} style={{
+                  flex: 1, display: "flex", flexDirection: "column",
+                  alignItems: "center", gap: "6px",
+                }}>
                   <div style={{
                     width: "100%",
                     height: `${b.val}%`,
@@ -564,9 +641,9 @@ function TabAttendance({ child }) {
    TAB: FEES
 ───────────────────────────────────────────── */
 const FEE_HISTORY = [
-  { term: "Autumn 2024", amount: null, status: "Paid", date: "1 Aug 2024" },
-  { term: "Spring 2025", amount: null, status: "Paid", date: "2 Jan 2025" },
-  { term: "Summer 2025", amount: null, status: "Paid", date: "1 Apr 2025" },
+  { term: "Autumn 2024", amount: null, status: "Paid",     date: "1 Aug 2024" },
+  { term: "Spring 2025", amount: null, status: "Paid",     date: "2 Jan 2025" },
+  { term: "Summer 2025", amount: null, status: "Paid",     date: "1 Apr 2025" },
   { term: "Autumn 2025", amount: null, status: "Upcoming", date: "1 Aug 2025" },
 ];
 
@@ -574,40 +651,39 @@ function TabFees({ child }) {
   const history = FEE_HISTORY.map((f) => ({ ...f, amount: child.fees.amount }));
 
   return (
-    <section className="discover-section">
-      <div className="discover-container">
+    <section style={sectionStyle}>
+      <div style={containerStyle}>
 
         <RevealSection>
-          <div className="discover-section-header">
-            <h2 className="discover-section-title">Fees & Payments</h2>
-            <p className="discover-section-intro">{child.name}</p>
-          </div>
+          <SectionHeader title="Fees & Payments" sub={child.name} />
         </RevealSection>
 
-        <RevealSection delay={80}>
-          <div className="family__grid" style={{ gridTemplateColumns: "repeat(auto-fit, minmax(160px,1fr))", marginBottom: "40px" }}>
-            <StatCard label="Annual Fee" value={child.fees.amount} />
-            <StatCard label="Payment Status" value={child.fees.status} />
-            <StatCard label="Next Due" value={child.fees.next} />
-          </div>
-        </RevealSection>
+        <div style={{
+          display: "grid",
+          gridTemplateColumns: "repeat(auto-fit, minmax(160px, 1fr))",
+          gap: "16px",
+          marginBottom: "48px",
+        }}>
+          <StatCard label="Annual Fee"     value={child.fees.amount} delay={0}   />
+          <StatCard label="Payment Status" value={child.fees.status} delay={80}  />
+          <StatCard label="Next Due"       value={child.fees.next}   delay={160} />
+        </div>
 
         <RevealSection delay={120}>
-          <div className="discover-section-header" style={{ marginBottom: "20px" }}>
-            <h2 className="discover-section-title" style={{ fontSize: "22px" }}>Payment History</h2>
-          </div>
+          <SectionHeader title="Payment History" />
         </RevealSection>
 
-        <div style={{ display: "flex", flexDirection: "column", gap: "12px", maxWidth: "700px" }}>
+        <div style={{
+          display: "flex", flexDirection: "column", gap: "12px",
+          maxWidth: "700px", margin: "0 auto",
+        }}>
           {history.map((f, i) => (
             <RevealSection key={f.term} delay={i * 80}>
               <div className="overview__pull-quote" style={{
                 borderColor: f.status === "Upcoming" ? "rgba(255,200,80,0.3)" : undefined,
               }}>
                 <div className="overview__pull-quote-bar" style={{
-                  background: f.status === "Upcoming"
-                    ? "rgba(255,200,80,0.5)"
-                    : undefined,
+                  background: f.status === "Upcoming" ? "rgba(255,200,80,0.5)" : undefined,
                 }} />
                 <div style={{
                   display: "flex", justifyContent: "space-between",
@@ -636,14 +712,10 @@ function TabFees({ child }) {
                       fontSize: "11px",
                       letterSpacing: "0.08em",
                       textTransform: "uppercase",
-                      color: f.status === "Paid"
-                        ? "rgba(100,220,140,0.8)"
-                        : "rgba(255,200,80,0.8)",
+                      color: f.status === "Paid" ? "rgba(100,220,140,0.8)" : "rgba(255,200,80,0.8)",
                       padding: "2px 8px",
                       borderRadius: "4px",
-                      background: f.status === "Paid"
-                        ? "rgba(100,220,140,0.08)"
-                        : "rgba(255,200,80,0.08)",
+                      background: f.status === "Paid" ? "rgba(100,220,140,0.08)" : "rgba(255,200,80,0.08)",
                     }}>{f.status}</span>
                   </div>
                 </div>
@@ -661,39 +733,40 @@ function TabFees({ child }) {
    TAB: NOTICES
 ───────────────────────────────────────────── */
 const ALL_NOTICES = [
-  { date: "30 May", tag: "Sport",     text: "Sports Day — 14 June. PE kit, sunscreen, and packed lunch required. All families welcome from 9 AM." },
-  { date: "27 May", tag: "Academic",  text: "Mathematics assessment rescheduled to 12 June due to inter-house competitions." },
-  { date: "24 May", tag: "Art",       text: "Annual art exhibition will be held on 7 June in the Main Hall. All families warmly invited." },
-  { date: "20 May", tag: "Report",    text: "Term reports for all students have been published. Visit the Documents section to view." },
-  { date: "15 May", tag: "Trip",      text: "Year 5 Science Museum trip on 20 June. Please return consent forms and payment by 10 June." },
-  { date: "10 May", tag: "General",   text: "School closes for Founders' Day on 6 June. Classes resume on 9 June." },
+  { date: "30 May", tag: "Sport",    text: "Sports Day — 14 June. PE kit, sunscreen, and packed lunch required. All families welcome from 9 AM." },
+  { date: "27 May", tag: "Academic", text: "Mathematics assessment rescheduled to 12 June due to inter-house competitions." },
+  { date: "24 May", tag: "Art",      text: "Annual art exhibition will be held on 7 June in the Main Hall. All families warmly invited." },
+  { date: "20 May", tag: "Report",   text: "Term reports for all students have been published. Visit the Documents section to view." },
+  { date: "15 May", tag: "Trip",     text: "Year 5 Science Museum trip on 20 June. Please return consent forms and payment by 10 June." },
+  { date: "10 May", tag: "General",  text: "School closes for Founders' Day on 6 June. Classes resume on 9 June." },
 ];
 
 function TabNotices() {
   return (
-    <section className="discover-section">
-      <div className="discover-container">
+    <section style={sectionStyle}>
+      <div style={containerStyle}>
 
         <RevealSection>
-          <div className="discover-section-header">
-            <h2 className="discover-section-title">School Notices</h2>
-            <p className="discover-section-intro">Latest Communications</p>
-          </div>
+          <SectionHeader title="School Notices" sub="Latest Communications" />
         </RevealSection>
 
-        <div style={{ display: "flex", flexDirection: "column", gap: "14px", maxWidth: "760px" }}>
+        <div style={{
+          display: "flex", flexDirection: "column", gap: "14px",
+          maxWidth: "760px", margin: "0 auto",
+        }}>
           {ALL_NOTICES.map((n, i) => (
             <RevealSection key={i} delay={i * 70}>
               <div className="overview__pull-quote">
                 <div className="overview__pull-quote-bar" />
                 <div style={{ width: "100%" }}>
-                  <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "8px", alignItems: "center" }}>
+                  <div style={{
+                    display: "flex", justifyContent: "space-between",
+                    marginBottom: "8px", alignItems: "center",
+                  }}>
                     <span style={{
                       fontFamily: "var(--font-body, sans-serif)",
-                      fontSize: "10px",
-                      fontWeight: 700,
-                      letterSpacing: "0.1em",
-                      textTransform: "uppercase",
+                      fontSize: "10px", fontWeight: 700,
+                      letterSpacing: "0.1em", textTransform: "uppercase",
                       color: "rgba(255,255,255,0.5)",
                       padding: "3px 8px",
                       border: "1px solid rgba(255,255,255,0.15)",
@@ -701,15 +774,13 @@ function TabNotices() {
                     }}>{n.tag}</span>
                     <span style={{
                       fontFamily: "var(--font-body, sans-serif)",
-                      fontSize: "11px",
-                      color: "rgba(255,255,255,0.3)",
+                      fontSize: "11px", color: "rgba(255,255,255,0.3)",
                       letterSpacing: "0.06em",
                     }}>{n.date}</span>
                   </div>
                   <p style={{
                     fontFamily: "var(--font-body, sans-serif)",
-                    fontSize: "15px",
-                    color: "rgba(255,255,255,0.75)",
+                    fontSize: "15px", color: "rgba(255,255,255,0.75)",
                     margin: 0, lineHeight: 1.7,
                   }}>{n.text}</p>
                 </div>
@@ -734,10 +805,10 @@ function Dashboard({ account, onLogout }) {
 
   const renderTab = () => {
     switch (activeTab) {
-      case "Overview":   return <TabOverview    child={activeChild} />;
-      case "Academics":  return <TabAcademics   child={activeChild} />;
-      case "Attendance": return <TabAttendance  child={activeChild} />;
-      case "Fees":       return <TabFees        child={activeChild} />;
+      case "Overview":   return <TabOverview   child={activeChild} />;
+      case "Academics":  return <TabAcademics  child={activeChild} />;
+      case "Attendance": return <TabAttendance child={activeChild} />;
+      case "Fees":       return <TabFees       child={activeChild} />;
       case "Notices":    return <TabNotices />;
       default:           return null;
     }
@@ -745,7 +816,6 @@ function Dashboard({ account, onLogout }) {
 
   return (
     <div className="discover-root" style={{ minHeight: "100vh" }}>
-      {/* sticky nav */}
       <DashNav
         active={activeTab}
         onSelect={setActiveTab}
@@ -753,23 +823,36 @@ function Dashboard({ account, onLogout }) {
         onLogout={onLogout}
       />
 
-      {/* hero strip */}
-      <section className="discover-hero" style={{ minHeight: "220px", position: "relative" }}>
+      {/* hero banner */}
+      <section className="discover-hero" style={{ minHeight: "240px", position: "relative" }}>
         <div className="discover-hero__grid" />
         <div className="discover-hero__orb discover-hero__orb--a" style={{ opacity: 0.4 }} />
         <div className="discover-hero__orb discover-hero__orb--b" style={{ opacity: 0.3 }} />
 
-        <div className="discover-container discover-hero__content" style={{ paddingTop: "36px", paddingBottom: "36px" }}>
-          <div className="discover-hero__eyebrow">
-            <span className="discover-hero__slash">— </span>
+        <div style={{
+          ...containerStyle,
+          position: "relative",
+          zIndex: 1,
+          paddingTop: "40px",
+          paddingBottom: "40px",
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          textAlign: "center",
+        }}>
+          <div className="discover-hero__eyebrow" style={{ justifyContent: "center", display: "flex", gap: "4px" }}>
+            <span className="discover-hero__slash">—&nbsp;</span>
             Parent Dashboard
-            <span className="discover-hero__slash"> —</span>
+            <span className="discover-hero__slash">&nbsp;—</span>
           </div>
-          <h1 className="discover-hero__title" style={{ fontSize: "clamp(28px, 5vw, 52px)", marginBottom: "20px" }}>
+
+          <h1
+            className="discover-hero__title"
+            style={{ fontSize: "clamp(28px, 5vw, 52px)", marginBottom: "28px", textAlign: "center" }}
+          >
             Hello,&nbsp;<em>{account.name.split(" ")[0]}</em>
           </h1>
 
-          {/* child selector */}
           {activeTab !== "Notices" && (
             <ChildSelector
               children={account.children}
@@ -780,7 +863,6 @@ function Dashboard({ account, onLogout }) {
         </div>
       </section>
 
-      {/* tab content */}
       <main>{renderTab()}</main>
     </div>
   );
