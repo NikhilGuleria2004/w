@@ -58,3 +58,8 @@ externalPort = 80
 deploymentTarget = "static"
 build = ["bash", "-c", "cd frontend && npm run build"]
 publicDir = "frontend/dist"
+
+[userenv]
+
+[userenv.shared]
+JWT_SECRET = "ddc94e635bd953fe0e24a79b104ddccf74737375dfcc720e0b0416efdb2613cbd618c0e099767722621dd31dd9e046721ba601457aefd838b384c648df2cb8a1"

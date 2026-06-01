@@ -17,10 +17,13 @@ async function readAccounts() {
 export async function login(req, res) {
   try {
     const { email, password } = req.body || {};
-    if (!email || !password) return res.status(400).json({ success: false, message: "Email and password required" });
+    if (!email || !password) {
+      return res.status(400).json({ success: false, message: "Email and password required" });
+    }
 
     const accounts = await readAccounts();
     const acct = accounts[email.toLowerCase()];
+
     if (!acct || acct.password !== password) {
       return res.status(401).json({ success: false, message: "Invalid credentials" });
     }
@@ -33,19 +36,22 @@ export async function login(req, res) {
     return res.json({ success: true, token, account: safe });
   } catch (err) {
     console.error("[parentController] login error", err);
-    return res.status(500).json({success: false, message: "Server Error!"});
-    
+    return res.status(500).json({ success: false, message: "Server error" });
   }
 }
 
 export async function getAccount(req, res) {
   try {
     const session = getSession(req.token);
-    if (!session) return res.status(401).json({ success: false, message: "Invalid session" });
+    if (!session) {
+      return res.status(401).json({ success: false, message: "Invalid or expired token" });
+    }
 
     const accounts = await readAccounts();
     const acct = accounts[session.email];
-    if (!acct) return res.status(404).json({ success: false, message: "Account not found" });
+    if (!acct) {
+      return res.status(404).json({ success: false, message: "Account not found" });
+    }
 
     const safe = { ...acct };
     delete safe.password;

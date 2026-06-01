@@ -1,20 +1,22 @@
-const sessions = new Map();
+import jwt from "jsonwebtoken";
 
-function makeToken() {
-  return `${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 10)}`;
-}
+const JWT_SECRET = process.env.JWT_SECRET;
+const JWT_EXPIRES_IN = "7d";
 
 export function createSession(email) {
-  const token = makeToken();
-  sessions.set(token, { email, created: Date.now() });
-  return token;
+  return jwt.sign({ email }, JWT_SECRET, { expiresIn: JWT_EXPIRES_IN });
 }
 
 export function getSession(token) {
   if (!token) return null;
-  return sessions.get(token) || null;
+  try {
+    const payload = jwt.verify(token, JWT_SECRET);
+    return { email: payload.email };
+  } catch {
+    return null;
+  }
 }
 
-export function destroySession(token) {
-  return sessions.delete(token);
+export function destroySession() {
+  // JWT tokens are stateless — invalidation is handled client-side by discarding the token
 }
