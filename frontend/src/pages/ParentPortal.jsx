@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 
-const API_BASE = `${window.location.protocol}//${window.location.hostname}:3001`;
+const API_BASE = "";
 
 /* ─────────────────────────────────────────────
    CENTERING HELPERS
